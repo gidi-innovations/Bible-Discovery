@@ -1,6 +1,6 @@
 # Bible Discovery: Life in Christ
 
-A mobile-first, self-discovery Bible study web app. Made by Gemma Pyne-Bailey.
+A mobile-first, self-discovery Bible study web app. Made by GIDI.
 
 People choose their starting point (exploring Jesus, new to following Jesus, growing and training others, or coming back after drifting) and work through 3/3 Discovery Bible Study lessons: Look back, Look up, Look forward.
 
@@ -26,4 +26,5 @@ To test on your own computer, run a small local server in this folder (for examp
 - Progress, notes and prayers are saved in each person's browser on their own device.
 - The **Ask** and **Share with my guide** features use Claude and only work inside claude.ai. On GitHub Pages they hide themselves automatically; everything else works.
 - Scripture: KJV, BBE and WEB are public domain. NIV, The Message and ERV are linked on BibleGateway, not included.
-- Strong's Concordance data from Open Scriptures (CC BY-SA). The Gospel on the Hand from AIM Trainers (aimtrainers.org).
+- Strong's Concordance data from Open Scriptures (CC BY-SA).
+- Lessons follow the 3/3 Discovery Bible Study sessions and The Gospel on the Hand from AIM Trainers (aimtrainers.org).

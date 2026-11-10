@@ -379,7 +379,7 @@ function viewHome(){
    ${['revival',...DEEPER].filter(id=>!(PATHC[P.k]||[]).includes(id)).map(id=>courseCard(sById(id))).join('')}`}
    <div class="sec"><h2>Verse for today</h2></div>
    <div class="card votd"><div class="vt">${v.vs.map(x=>esc(vt(x))).join(' ')}</div><div class="vr">${esc(v.ref)} (${VER[VN()].n})</div>${shareRow(v.vs.map(vt).join(' ')+' ('+v.ref+', '+VER[VN()].n+')')}</div>
-   <div class="foot">Made by Gemma Pyne-Bailey<br>Scripture: King James Version (public domain).<br>Hebrew &amp; Greek: Strong's Concordance via Open Scriptures (CC BY-SA).</div>`;
+   <div class="foot">Made by GIDI<br>Lessons follow the 3/3 Discovery Bible Study sessions and The Gospel on the Hand from <a class="lnk" href="https://aimtrainers.org" target="_blank" rel="noopener">AIM Trainers</a>.<br>Scripture: KJV, Bible in Basic English and World English Bible (public domain).<br>Hebrew &amp; Greek: Strong's Concordance via Open Scriptures (CC BY-SA).</div>`;
   $('#chgPath').onclick=()=>{S.path=null;save();render()};
 }
 // ---------- TOOLS ----------
