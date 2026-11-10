@@ -278,8 +278,9 @@ function render(){
   if(!SERIES) return;
   const p=parseHash(), r=p[0];
   closeSheet(true);
-  if(S.name==null){tab='home';viewWelcome()}
-  else if(!S.path){tab='home';viewPath()}
+  const gated=!r||['home','series','lesson'].includes(r);
+  if(gated&&S.name==null){tab='home';viewWelcome()}
+  else if(gated&&!S.path){tab='home';viewPath()}
   else if(r==='home'||!r){tab='home';viewHome()}
   else if(r==='series'){tab='home';viewSeries(p[1])}
   else if(r==='lesson'){tab='home';viewLesson(p[1],+p[2],+(p[3]||0))}
