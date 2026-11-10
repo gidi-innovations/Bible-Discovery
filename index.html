@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bible Discovery: Life in Christ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,600;1,400&family=Noto+Serif+Hebrew:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue-900:#0B2A5B; --blue-800:#123C7C; --blue-700:#1A4F9C; --blue-600:#1E5BB8; --blue-500:#2F74D0;
+  --blue-300:#8DB4EA; --blue-200:#C7DBF6; --blue-100:#E6EFFB; --blue-50:#F3F7FD;
+  --ink:#0E1B33; --ink-2:#44536E; --ink-3:#7A87A0; --line:#DCE5F2; --white:#fff;
+  --ok:#1F8A5B; --bad:#C2453A;
+  --r:16px; --shadow:0 1px 2px rgba(11,42,91,.06),0 6px 20px rgba(11,42,91,.07);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{overflow-x:hidden;margin:0;background:var(--blue-50);color:var(--ink);font:16px/1.55 Inter,system-ui,sans-serif}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+input,textarea{font:inherit;color:inherit}
+h1,h2,h3{font-family:"DM Serif Display",Georgia,serif;font-weight:400;margin:0;letter-spacing:.2px}
+.app{max-width:760px;margin:0 auto;min-height:100vh;padding-bottom:84px;position:relative}
+.top{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px;padding:10px 14px;min-height:56px}
+.top .back{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;color:var(--blue-700)}
+.top .back:hover{background:var(--blue-100)}
+.top .ttl{font-weight:600;font-size:15px;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.brand{display:flex;align-items:center;gap:10px;flex:1}
+.brand b{font-family:"DM Serif Display",serif;font-weight:400;font-size:21px;color:var(--blue-800)}
+.logo{width:34px;height:34px;border-radius:10px;background:var(--blue-600);display:grid;place-items:center}
+main{padding:16px}
+.nav{position:fixed;left:0;right:0;bottom:0;z-index:30;background:#fff;border-top:1px solid var(--line);display:flex;justify-content:center}
+.nav .in{display:flex;max-width:760px;width:100%}
+.nav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:9px 0 12px;font-size:11.5px;font-weight:600;color:var(--ink-3)}
+.nav button.on{color:var(--blue-600)}
+.nav svg{width:22px;height:22px}
+.hero{background:linear-gradient(150deg,var(--blue-800),var(--blue-600));color:#fff;border-radius:22px;padding:22px 20px;position:relative;overflow:hidden}
+.hero h1{font-size:29px;line-height:1.15;margin:4px 0 8px}
+.hero p{margin:0;opacity:.9;font-size:15px}
+.hero .eyebrow{font-size:12px;letter-spacing:1.4px;text-transform:uppercase;opacity:.8;font-weight:600}
+.hero .ring{position:absolute;right:-50px;top:-50px;width:190px;height:190px;border-radius:50%;border:28px solid rgba(255,255,255,.07)}
+.hero .btn{margin-top:16px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 18px;border-radius:999px;font-weight:600;font-size:15px}
+.btn.pri{background:var(--blue-600);color:#fff}
+.btn.pri:hover{background:var(--blue-700)}
+.btn.wh{background:#fff;color:var(--blue-800)}
+.btn.gh{background:var(--blue-100);color:var(--blue-800)}
+.btn.out{border:1.5px solid var(--blue-200);color:var(--blue-800);background:#fff}
+.btn:disabled{opacity:.45;cursor:default}
+.sec{margin:26px 0 10px;display:flex;align-items:baseline;justify-content:space-between}
+.sec h2{font-size:22px;color:var(--blue-900)}
+.sec span{font-size:13px;color:var(--ink-3)}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow)}
+.course{display:flex;gap:14px;padding:14px;align-items:center;width:100%;text-align:left;margin-bottom:12px;transition:transform .15s}
+.course:active{transform:scale(.99)}
+.course .ic{width:58px;height:58px;flex:none;border-radius:16px;display:grid;place-items:center;color:#fff}
+.course .ic svg{width:28px;height:28px}
+.course .tx{flex:1;min-width:0}
+.course .tg{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--blue-600)}
+.course h3{font-size:19px;line-height:1.2;margin:2px 0 3px}
+.course .meta{font-size:13px;color:var(--ink-3)}
+.bar{height:6px;border-radius:9px;background:var(--blue-100);overflow:hidden;margin-top:8px}
+.bar i{display:block;height:100%;background:var(--blue-600);border-radius:9px;transition:width .4s}
+.votd{padding:18px;border-left:4px solid var(--blue-600)}
+.votd .vt{font-family:"Noto Serif",serif;font-size:17px;line-height:1.6}
+.votd .vr{margin-top:8px;font-weight:600;color:var(--blue-700);font-size:14px}
+.askbox{display:flex;gap:12px;align-items:center;padding:16px;width:100%;text-align:left}
+.askbox .q{width:44px;height:44px;border-radius:50%;background:var(--blue-100);color:var(--blue-700);display:grid;place-items:center;flex:none}
+.shead{padding:22px 18px;border-radius:22px;color:#fff;background:linear-gradient(150deg,var(--blue-900),var(--c,var(--blue-600)))}
+.shead h1{font-size:28px;line-height:1.15;margin:6px 0 8px}
+.shead p{margin:0;opacity:.92;font-size:15px}
+.shead .tg{font-size:12px;letter-spacing:1.3px;text-transform:uppercase;font-weight:600;opacity:.8}
+.group{font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--ink-3);margin:22px 4px 8px}
+.lesson{display:flex;gap:12px;align-items:center;padding:13px 14px;width:100%;text-align:left;margin-bottom:9px}
+.lesson .n{width:36px;height:36px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:700;font-size:14px;background:var(--blue-100);color:var(--blue-700)}
+.lesson.done .n{background:var(--blue-600);color:#fff}
+.lesson .t{flex:1;min-width:0}
+.lesson .t b{display:block;font-weight:600;font-size:15.5px;line-height:1.3}
+.lesson .t small{color:var(--ink-3);font-size:13px}
+.chev{color:var(--blue-300);flex:none}
+/* lesson player */
+.prog{display:flex;gap:4px;margin:2px 0 14px}
+.prog i{flex:1;height:5px;border-radius:9px;background:var(--blue-200)}
+.prog i.on{background:var(--blue-600)}
+.stepnm{font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--blue-600);margin-bottom:6px}
+.step h2{font-size:26px;line-height:1.2;color:var(--blue-900);margin-bottom:10px}
+.step .lead{color:var(--ink-2);margin:0 0 14px}
+.pad{padding:18px}
+.passage{padding:16px 18px;margin-bottom:12px}
+.passage .ref{font-weight:700;color:var(--blue-700);font-size:14px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center}
+.passage .ref button{color:var(--ink-3);padding:4px}
+.passage .ref button.on{color:#E0A100}
+.scr{font-family:"Noto Serif",serif;font-size:17.5px;line-height:1.75}
+.scr sup{font-family:Inter,sans-serif;font-size:10.5px;color:var(--blue-500);font-weight:700;margin-right:3px}
+.w{cursor:pointer;border-radius:4px}
+.w:hover{background:var(--blue-100)}
+.tip{font-size:13px;color:var(--ink-3);display:flex;gap:6px;align-items:center;margin:4px 0 12px}
+.opts{display:grid;gap:10px;margin-top:14px}
+.opt{padding:14px 16px;border-radius:14px;border:1.5px solid var(--line);background:#fff;text-align:left;font-weight:600}
+.opt:hover{border-color:var(--blue-300)}
+.opt.good{border-color:var(--ok);background:#EAF6F0;color:#14633F}
+.opt.badx{border-color:var(--bad);background:#FBEDEB;color:#8F2D25}
+.blankline{font-family:"Noto Serif",serif;font-size:20px;line-height:1.6;padding:18px;text-align:center}
+.blankline u{display:inline-block;min-width:90px;border-bottom:2.5px solid var(--blue-500);text-decoration:none;color:var(--blue-700);font-weight:600}
+.word{padding:18px;margin-bottom:12px}
+.word .num{font-size:12px;font-weight:700;color:var(--blue-600);letter-spacing:.6px}
+.word .lem{font-size:38px;line-height:1.3;color:var(--blue-900);margin:4px 0 2px}
+.heb{font-family:"Noto Serif Hebrew","Noto Serif",serif;direction:rtl}
+.grk{font-family:"Noto Serif",serif}
+.word .xl{font-size:17px;font-weight:600}
+.word .pr{color:var(--ink-3);font-size:14px}
+.word dl{margin:12px 0 0}
+.word dt{font-size:11.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink-3);margin-top:10px}
+.word dd{margin:2px 0 0}
+.lnk{color:var(--blue-600);font-weight:600;cursor:pointer}
+.note{font-family:"Noto Serif",serif;font-size:17px;line-height:1.75}
+textarea{width:100%;min-height:130px;border:1.5px solid var(--line);border-radius:14px;padding:12px 14px;background:#fff;resize:vertical;outline:none}
+textarea:focus,input:focus{border-color:var(--blue-500)}
+.saved{font-size:12.5px;color:var(--ok);height:18px;margin-top:4px}
+.declare{background:linear-gradient(150deg,var(--blue-800),var(--blue-600));color:#fff;border-radius:22px;padding:30px 22px;text-align:center}
+.declare .q{font-family:"DM Serif Display",serif;font-size:27px;line-height:1.3}
+.declare small{display:block;opacity:.8;margin-top:14px;font-size:13px}
+.navbtns{display:flex;gap:10px;margin-top:18px}
+.navbtns .btn{flex:1}
+.fab{position:fixed;right:max(16px,calc(50% - 364px));bottom:92px;z-index:25;background:#fff;color:var(--blue-700);border:1.5px solid var(--blue-200);box-shadow:var(--shadow)}
+.prayer{font-family:"Noto Serif",serif;font-size:17.5px;line-height:1.8;padding:20px;border-left:4px solid var(--blue-500)}
+.celebrate{text-align:center;padding:26px 18px}
+.celebrate .big{font-size:54px}
+/* sheet */
+.scrim{position:fixed;inset:0;background:rgba(8,24,52,.45);z-index:50;display:none}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:51;max-width:760px;margin:0 auto;background:#fff;border-radius:22px 22px 0 0;max-height:88vh;display:none;flex-direction:column;box-shadow:0 -10px 40px rgba(0,0,0,.15)}
+.sheet.open,.scrim.open{display:flex}
+.sheet .hd{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--line)}
+.sheet .hd b{flex:1;font-size:16px}
+.sheet .bd{overflow:auto;padding:16px;flex:1;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.x{width:36px;height:36px;border-radius:50%;background:var(--blue-50);display:grid;place-items:center}
+.chat{display:flex;flex-direction:column;gap:10px}
+.msg{max-width:88%;padding:11px 14px;border-radius:16px;white-space:pre-wrap;font-size:15px}
+.msg.me{align-self:flex-end;background:var(--blue-600);color:#fff;border-bottom-right-radius:5px}
+.msg.ai{align-self:flex-start;background:var(--blue-50);border:1px solid var(--line);border-bottom-left-radius:5px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 4px}
+.chip{padding:8px 12px;border-radius:999px;background:var(--blue-100);color:var(--blue-800);font-size:13.5px;font-weight:500;text-align:left}
+.composer{display:flex;gap:8px;padding:12px 14px;border-top:1px solid var(--line)}
+.composer input{flex:1;border:1.5px solid var(--line);border-radius:999px;padding:11px 16px;outline:none}
+.send{width:46px;height:46px;border-radius:50%;background:var(--blue-600);color:#fff;display:grid;place-items:center;flex:none}
+/* search */
+.sbox{display:flex;align-items:center;gap:8px;background:#fff;border:1.5px solid var(--line);border-radius:999px;padding:4px 6px 4px 16px}
+.sbox input{flex:1;border:0;outline:none;padding:10px 0;background:none;font-size:16px}
+.seg{display:flex;background:var(--blue-100);border-radius:999px;padding:4px;margin:12px 0}
+.seg button{flex:1;padding:9px;border-radius:999px;font-weight:600;font-size:14px;color:var(--blue-800)}
+.seg button.on{background:#fff;box-shadow:var(--shadow)}
+.res{padding:13px 15px;margin-bottom:9px;width:100%;text-align:left;display:block}
+.res .h{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.res .h .lm{font-size:22px;color:var(--blue-900)}
+.res .h .xl{font-weight:600}
+.res .h .nm{margin-left:auto;font-size:12px;font-weight:700;color:var(--blue-600);background:var(--blue-100);padding:2px 8px;border-radius:999px}
+.res .d{font-size:14px;color:var(--ink-2);margin-top:3px}
+.vres{padding:13px 15px;margin-bottom:9px;width:100%;text-align:left;display:block}
+.vres b{color:var(--blue-700);font-size:13.5px}
+.vres div{font-family:"Noto Serif",serif;font-size:15.5px;margin-top:3px}
+mark{background:#FFF0B8;border-radius:3px;padding:0 1px}
+.dir{display:flex;flex-wrap:wrap;gap:8px}
+.dir button{padding:8px 12px;border-radius:12px;background:#fff;border:1px solid var(--line);font-size:14px;text-align:left}
+.dir button span{display:block;font-size:11.5px;color:var(--ink-3)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:8px}
+.grid button{padding:11px 8px;border-radius:12px;background:#fff;border:1px solid var(--line);font-size:14px;font-weight:500}
+.grid.ch{grid-template-columns:repeat(auto-fill,minmax(52px,1fr))}
+.grid button:hover{border-color:var(--blue-300)}
+.reader .scr p{margin:0 0 10px}
+.chnav{display:flex;gap:10px;margin:18px 0}
+.chnav .btn{flex:1}
+.empty{text-align:center;color:var(--ink-3);padding:30px 10px;font-size:14.5px}
+.muted{color:var(--ink-3);font-size:13.5px}
+.spin{width:22px;height:22px;border:3px solid var(--blue-100);border-top-color:var(--blue-600);border-radius:50%;animation:sp 0.8s linear infinite;margin:24px auto}
+@keyframes sp{to{transform:rotate(360deg)}}
+.stat{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.stat div{padding:14px;text-align:center}
+.stat b{display:block;font-size:26px;font-family:"DM Serif Display",serif;color:var(--blue-700);font-weight:400}
+.stat span{font-size:12px;color:var(--ink-3)}
+.foot{text-align:center;font-size:12px;color:var(--ink-3);margin:30px 0 10px;line-height:1.6}
+.jnote{padding:14px 16px;margin-bottom:9px;display:block;color:inherit;text-decoration:none}
+.jnote b{font-size:13px;color:var(--blue-700)}
+.jnote p{margin:4px 0 0;font-size:14.5px;white-space:pre-wrap}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top" id="top"></header>
+  <main id="main"><div class="spin"></div></main>
+</div>
+<nav class="nav"><div class="in" id="nav"></div></nav>
+<div class="scrim" id="scrim"></div>
+<div class="sheet" id="sheet"><div class="hd"><b id="shT"></b><button class="x" id="shX" aria-label="Close">✕</button></div><div class="bd" id="shB"></div><div id="shF"></div></div>
+
+<script>
+(()=>{
+const $=s=>document.querySelector(s);
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const IC={
+ back:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>',
+ chev:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>',
+ home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>',
+ tools:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3" y="3" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2"/></svg>',
+ search:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>',
+ book:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 6c-2-1.5-5-2-8-2v14c3 0 6 .5 8 2 2-1.5 5-2 8-2V4c-3 0-6 .5-8 2z"/><path d="M12 6v14"/></svg>',
+ star:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg>',
+ starF:'<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg>',
+ starO:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg>',
+ ask:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .8-1 1.5"/><circle cx="12" cy="16.5" r=".6" fill="currentColor"/></svg>',
+ send:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
+ cross:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 3v18M6 9h12"/></svg>',
+ crown:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 8l4.5 4L12 5l4.5 7L21 8l-2 11H5z"/></svg>',
+ person:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>',
+ sun:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>',
+ flame:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3c1 3.5 5 5.5 5 10a5 5 0 0 1-10 0c0-2.5 1.5-4 2.5-5 .3 2 1.2 3 2.5 3.5C11 9 11.5 6 12 3z"/></svg>',
+ shield:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg>',
+ hands:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.4-7-10.2A4 4 0 0 1 12 8a4 4 0 0 1 7 2.8C19 16.6 12 21 12 21z"/></svg>'
+};
+const SICON={revival:'flame',whogod:'shield',newlife:'book',salvation:'cross',jesus:'crown',identity:'person',god:'sun',work:'hands'};
+const SCOL={revival:'#1A57A8',whogod:'#2A5DA8',newlife:'#1F6FB2',salvation:'#1E5BB8',jesus:'#123C7C',identity:'#2F74D0',god:'#24489E',work:'#1A6FA8'};
+
+// ---------- storage (light, per device) ----------
+const KEY='bd-life-in-christ-v1';
+let S={done:{},notes:{},fav:[],saved:null,lastL:null};
+try{const r=localStorage.getItem(KEY); if(r) S=Object.assign(S,JSON.parse(r));}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+
+// ---------- data ----------
+let SERIES=null, BIBLE=null, LEX=null, lexP=null, bibleP=null;
+const getJSON=u=>fetch(u).then(r=>{if(!r.ok)throw new Error(r.status);return r.json()});
+const loadLex=()=>lexP||(lexP=getJSON('data/lex.json').then(d=>{LEX=d;return d}));
+const VER={kjv:{n:'KJV',full:'King James Version',k:'t'},bbe:{n:'BBE',full:'Bible in Basic English (easy read)',k:'e'},web:{n:'WEB',full:'World English Bible (modern English)',k:'w'}};
+const VN=()=>VER[S.ver]?S.ver:'kjv';
+const vt=v=>v[VER[VN()].k]||v.t;
+const BIBLES={};
+const loadBible=()=>{const k=VN();if(!BIBLES[k])BIBLES[k]=getJSON('data/'+k+'.json');return BIBLES[k].then(d=>{BIBLE=d;return d})};
+function verPicker(){return `<div class="chips" style="margin:0 0 12px">${Object.entries(VER).map(([k,o])=>`<button class="chip" data-ver="${k}" style="${VN()===k?'background:var(--blue-600);color:#fff':''}">${o.n}</button>`).join('')}<span class="muted" style="align-self:center;font-size:12.5px">${esc(VER[VN()].full)}</span></div>`}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-ver]');if(!b)return;S.ver=b.dataset.ver;save();BIBLE=null;render()});
+function gwLinks(refs){const q=encodeURIComponent(refs.join('; '));const L=(v,l)=>`<a class="lnk" href="https://www.biblegateway.com/passage/?search=${q}&version=${v}" target="_blank" rel="noopener">${l}</a>`;return `<div class="muted" style="margin:-4px 0 12px;font-size:13.5px">Also read in: ${L('NIV','NIV')} · ${L('MSG','The Message')} · ${L('ERV','Easy-to-Read (ERV)')}</div>`}
+// ---------- LISTEN ----------
+let speaking=false;
+function bestVoice(){try{const vs=speechSynthesis.getVoices().filter(v=>/^en/i.test(v.lang));if(S.voice){const f=vs.find(v=>v.name===S.voice);if(f)return f}const pref=[/natural/i,/neural/i,/premium/i,/enhanced/i,/google uk english female/i,/google uk english/i,/google us english/i,/samantha/i,/daniel/i,/serena/i,/moira/i];for(const r of pref){const f=vs.find(v=>r.test(v.name));if(f)return f}return vs.find(v=>/en-GB/i.test(v.lang))||vs[0]||null}catch(e){return null}}
+function listenBtn(id){return ('speechSynthesis' in window)?`<div style="display:flex;gap:8px;align-items:center;margin:0 0 12px;flex-wrap:wrap"><button class="btn gh" id="${id}" style="padding:9px 16px">▶ Listen</button><select id="${id}V" style="border:1.5px solid var(--line);border-radius:999px;padding:8px 10px;background:#fff;max-width:200px;font-size:13.5px"><option value="">Best voice</option></select></div>`:''}
+function bindListen(id,getText){const b=$('#'+id);if(!b)return;const sel=$('#'+id+'V');
+  const fill=()=>{try{const vs=speechSynthesis.getVoices().filter(v=>/^en/i.test(v.lang));sel.innerHTML='<option value="">Best voice</option>'+vs.map(v=>`<option ${S.voice===v.name?'selected':''}>${esc(v.name)}</option>`).join('')}catch(e){}};
+  fill();try{speechSynthesis.onvoiceschanged=fill}catch(e){}
+  sel.onchange=()=>{S.voice=sel.value;save()};
+  b.onclick=()=>{try{if(speaking){speechSynthesis.cancel();speaking=false;b.textContent='▶ Listen';return}
+    const u=new SpeechSynthesisUtterance(getText());const v=bestVoice();if(v){u.voice=v;u.lang=v.lang}u.rate=.92;u.pitch=1;
+    u.onend=()=>{speaking=false;b.textContent='▶ Listen'};speaking=true;b.textContent='■ Stop';speechSynthesis.speak(u)}catch(e){b.textContent='Listening not supported'}};
+}
+window.addEventListener('hashchange',()=>{try{speechSynthesis.cancel();speaking=false}catch(e){}});
+const BOOKS=["Genesis","Exodus","Leviticus","Numbers","Deuteronomy","Joshua","Judges","Ruth","1 Samuel","2 Samuel","1 Kings","2 Kings","1 Chronicles","2 Chronicles","Ezra","Nehemiah","Esther","Job","Psalms","Proverbs","Ecclesiastes","Song of Solomon","Isaiah","Jeremiah","Lamentations","Ezekiel","Daniel","Hosea","Joel","Amos","Obadiah","Jonah","Micah","Nahum","Habakkuk","Zephaniah","Haggai","Zechariah","Malachi","Matthew","Mark","Luke","John","Acts","Romans","1 Corinthians","2 Corinthians","Galatians","Ephesians","Philippians","Colossians","1 Thessalonians","2 Thessalonians","1 Timothy","2 Timothy","Titus","Philemon","Hebrews","James","1 Peter","2 Peter","1 John","2 John","3 John","Jude","Revelation"];
+
+// ---------- AI (ask Claude) ----------
+let samp=null;
+(async()=>{try{ if(window.claude&&claude.use){ samp=await claude.use('sample'); render(); } }catch(e){samp=null}})();
+
+// ---------- router ----------
+let tab='home';
+function go(h){ if(location.hash==='#'+h) render(); else location.hash=h; }
+window.addEventListener('hashchange',()=>{render();window.scrollTo(0,0)});
+function parseHash(){const h=(location.hash||'#home').slice(1);return h.split('-')}
+
+function setTop(html){$('#top').innerHTML=html}
+function brandTop(){setTop(`<div class="brand"><div class="logo">${IC.cross.replace('<svg','<svg width="20" height="20" style="color:#fff"')}</div><b>Bible Discovery</b></div>`)}
+function backTop(title,to){setTop(`<button class="back" data-go="${to}" aria-label="Back">${IC.back}</button><div class="ttl">${esc(title)}</div>`)}
+function navBar(){
+  const items=[['home','Home','home'],['bible','Bible','book'],['tools','Tools','tools'],['journey','My Journey','star']];
+  $('#nav').innerHTML=items.map(([k,l,i])=>`<button class="${tab===k?'on':''}" data-go="${k}">${IC[i]}${l}</button>`).join('');
+}
+document.addEventListener('click',e=>{
+  const g=e.target.closest('[data-go]'); if(g){e.preventDefault();go(g.dataset.go);return}
+  const w=e.target.closest('.w'); if(w){wordPop(w.textContent,+w.closest('[data-b]').dataset.b);return}
+  const sn=e.target.closest('[data-strong]'); if(sn){e.preventDefault();openWord(sn.dataset.strong);return}
+});
+
+function render(){
+  if(!SERIES) return;
+  const p=parseHash(), r=p[0];
+  closeSheet(true);
+  if(S.name==null){tab='home';viewWelcome()}
+  else if(!S.path){tab='home';viewPath()}
+  else if(r==='home'||!r){tab='home';viewHome()}
+  else if(r==='series'){tab='home';viewSeries(p[1])}
+  else if(r==='lesson'){tab='home';viewLesson(p[1],+p[2],+(p[3]||0))}
+  else if(r==='tools'){tab='tools';viewTools()}
+  else if(r==='search'){tab='tools';viewSearch()}
+  else if(r==='word'){tab='tools';viewWord(p[1])}
+  else if(r==='bible'){tab='bible';viewBible(p[1]!=null?+p[1]:null,p[2]!=null?+p[2]:null)}
+  else if(r==='journey'){tab='journey';viewJourney()}
+  else if(r==='pray'){tab='tools';viewPray()}
+  else if(r==='hand'){tab='tools';viewHand()}
+  else if(r==='sos'){tab='tools';viewSOS()}
+  else {tab='home';viewHome()}
+  navBar();
+}
+
+// ---------- helpers ----------
+const sById=id=>SERIES.find(s=>s.id===id);
+const lid=(s,i)=>s+':'+i;
+const doneCount=s=>s.lessons.filter((_,i)=>S.done[lid(s.id,i)]).length;
+const isOT=b=>b<39;
+function wrapWords(t){return esc(t).replace(/[A-Za-z][A-Za-z']*/g,m=>`<span class="w">${m}</span>`)}
+function cleanDef(s){return esc((s||'').replace(/[{}]/g,'').trim()).replace(/\b([HG]\d{1,5})\b/g,'<a class="lnk" data-strong="$1">$1</a>')}
+function scriptLemma(n,l){return `<span class="${n[0]==='H'?'heb':'grk'}">${esc(l)}</span>`}
+function blankSentence(L){return esc(L.declare).replace(new RegExp('\\b'+L.blank.replace(/[-]/g,'\\-')+'\\b'),'<u>&nbsp;?&nbsp;</u>')}
+
+const NM=()=>(S.name||'').trim();
+const hi=()=>{const h=new Date().getHours();return h<12?'Good morning':h<17?'Good afternoon':'Good evening'};
+function viewWelcome(){
+  setTop(`<div class="brand"><div class="logo">${IC.cross.replace('<svg','<svg width="20" height="20" style="color:#fff"')}</div><b>Bible Discovery</b></div>`);
+  $('#main').innerHTML=`<section class="hero" style="margin-top:6px"><div class="ring"></div><div class="eyebrow">Welcome</div>
+    <h1>Your journey with God starts here.</h1><p>Before we begin, what would you like us to call you? It makes your quiet times and prayers personal. This is optional and stays on this device.</p></section>
+    <form class="card pad" id="nf" style="margin-top:14px"><label style="font-weight:600">Your first name</label>
+     <input id="nmIn" maxlength="30" autocomplete="given-name" placeholder="e.g. Grace" style="width:100%;margin-top:8px;border:1.5px solid var(--line);border-radius:14px;padding:12px 14px;outline:none;font-size:16px">
+     <button class="btn pri" style="width:100%;margin-top:14px">Continue</button>
+     <button type="button" class="btn gh" id="nmSkip" style="width:100%;margin-top:10px">Skip for now</button></form>`;
+  $('#nf').onsubmit=e=>{e.preventDefault();S.name=$('#nmIn').value.trim().slice(0,30);save();go('home')};
+  $('#nmSkip').onclick=()=>{S.name='';save();go('home')};
+  navBar();
+}
+// ---------- PATHS ----------
+const PATHS=[
+ {k:'explore',c:'salvation',label:"I'm exploring Jesus",desc:"I'm curious and open to reading the Bible."},
+ {k:'new',c:'newlife',label:"I'm new to following Jesus",desc:"I have recently given my life to Jesus."},
+ {k:'grow',c:'whogod',label:"I'm growing and want to train others",desc:"I follow Jesus and want to go deeper and disciple others."},
+ {k:'revive',c:'revival',label:"I backslid and want to reboot my walk with Jesus",desc:"I'm a believer, but I've drifted from God and want to come back."}];
+const PATHC={explore:['salvation'],new:['newlife','whogod'],grow:['whogod'],revive:['revival','newlife','whogod']};
+const READW={new:['salvation'],grow:['salvation','newlife'],revive:['salvation']};
+const MAIN=['salvation','newlife','whogod'], DEEPER=['jesus','identity','god','work'];
+const LOCKED=()=>S.path==='explore'&&!S.saved;
+function receivedJesus(){S.saved=S.saved||Date.now();if(S.path==='explore')S.path='new';save()}
+function viewPath(){
+  brandTop();
+  $('#main').innerHTML=`<section class="hero" style="margin-top:6px"><div class="ring"></div><div class="eyebrow">${NM()?esc('Welcome, '+NM()):'Welcome'}</div>
+    <h1>Where are you with Jesus?</h1><p>Choose your starting point and we'll show you where to begin. You can change it any time.</p></section>
+    <div style="display:grid;gap:10px;margin-top:14px">${PATHS.map(p=>{const s=sById(p.c);return `<button class="card course" data-path="${p.k}" style="margin:0"><div class="ic" style="background:${SCOL[s.id]}">${IC[SICON[s.id]]}</div><div class="tx"><h3 style="font-size:18px">${esc(p.label)}</h3><div class="meta">${esc(p.desc)}</div><div class="tg" style="margin-top:6px">Start: ${esc(s.title)}</div></div></button>`}).join('')}</div>`;
+  document.querySelectorAll('[data-path]').forEach(b=>b.onclick=()=>{S.path=b.dataset.path;save();go('home')});
+  navBar();
+}
+function courseCard(s,num,tagOverride){const d=doneCount(s),n=s.lessons.length;return `
+    <button class="card course" data-go="series-${s.id}">
+      <div class="ic" style="background:${SCOL[s.id]}">${num?`<b style="font-size:22px;font-family:'DM Serif Display',serif">${num}</b>`:IC[SICON[s.id]]}</div>
+      <div class="tx"><div class="tg">${esc(tagOverride||s.tag)}</div><h3>${esc(s.title)}</h3>
+      <div class="meta">${n} lessons${d?` · ${d} done`:''}</div><div class="bar"><i style="width:${d/n*100}%"></i></div></div>
+    </button>`}
+const THOUGHTS=[["God hears my thoughts.","Psalm 139:2"],["I am never alone.","Hebrews 13:5"],["God's mercies are new this morning.","Lamentations 3:22-23"],["I am loved with an everlasting love.","Jeremiah 31:3"],["God is working all things for my good.","Romans 8:28"],["My past does not define me. Jesus does.","2 Corinthians 5:17"],["God sees me.","Genesis 16:13"],["I can cast every care on Him.","1 Peter 5:7"],["His grace is enough for today.","2 Corinthians 12:9"],["The Lord is my shepherd. I shall not want.","Psalm 23:1"],["Nothing can separate me from God's love.","Romans 8:38-39"],["I can do all things through Christ.","Philippians 4:13"],["God is my refuge and strength.","Psalm 46:1"],["Jesus calls me friend.","John 15:15"],["When I am weak, He is strong.","2 Corinthians 12:10"],["God knows my name.","Isaiah 43:1"],["Peace is mine in Jesus.","John 14:27"],["God's plans for me are good.","Jeremiah 29:11"],["The joy of the Lord is my strength.","Nehemiah 8:10"],["God is faithful, even when I am not.","2 Timothy 2:13"],["I am God's masterpiece.","Ephesians 2:10"],["My prayers are heard.","1 John 5:14"],["Today, I choose to trust Him.","Proverbs 3:5-6"],["The Holy Spirit lives in me.","1 Corinthians 6:19"],["God is close to the brokenhearted.","Psalm 34:18"],["I am forgiven.","1 John 1:9"],["Fear not, for God is with me.","Isaiah 41:10"],["God will finish what He started in me.","Philippians 1:6"],["I am a light in this world.","Matthew 5:14"],["Jesus is coming again.","John 14:3"],["God delights in me.","Zephaniah 3:17"]];
+function shareRow(text){const u='https://wa.me/?text='+encodeURIComponent(text+' — shared from Bible Discovery');return `<div style="display:flex;gap:8px;margin-top:12px"><a class="btn gh" href="${u}" target="_blank" rel="noopener" style="padding:8px 14px;font-size:14px;text-decoration:none">Share on WhatsApp</a><button class="btn out" data-copy="${esc(text)}" style="padding:8px 14px;font-size:14px">Copy</button></div>`}
+document.addEventListener('click',e=>{const c=e.target.closest('[data-copy]');if(!c)return;const t=c.dataset.copy+' — shared from Bible Discovery';const done=()=>{c.textContent='Copied ✓';setTimeout(()=>c.textContent='Copy',1500)};try{navigator.clipboard.writeText(t).then(done,()=>{c.textContent='Copy failed'})}catch(err){c.textContent='Copy failed'}});
+// ---------- HOME ----------
+function viewHome(){
+  brandTop();
+  const all=SERIES.flatMap(s=>s.lessons.flatMap(l=>l.verses));
+  const day=Math.floor(Date.now()/864e5); const v=all[day%all.length];
+  const P=PATHS.find(p=>p.k===S.path)||PATHS[0]; const ps=sById(P.c);
+  let tgt=null;
+  if(S.lastL){const [sid,i]=S.lastL.split(':');if(sid===ps.id&&ps.lessons[+i]&&!S.done[S.lastL])tgt=[ps,+i]}
+  if(!tgt&&ps.id==='salvation'){const L=ps.lessons,ri=L.length-1;const groups=[...new Set(L.slice(0,ri).map(x=>x.group))];
+    if(!S.done[lid(ps.id,ri)]&&groups.some(g=>L.every((x,j)=>x.group!==g||S.done[lid(ps.id,j)])))tgt=[ps,ri]}
+  if(!tgt){const i=ps.lessons.findIndex((_,j)=>!S.done[lid(ps.id,j)]);if(i>=0)tgt=[ps,i]}
+  if(!tgt){const pc=PATHC[P.k]||MAIN;for(const id of pc.slice(1)){const s2=sById(id);const i=s2.lessons.findIndex((_,j)=>!S.done[lid(id,j)]);if(i>=0){tgt=[s2,i];break}}}
+  $('#main').innerHTML=`
+   <section class="hero"><div class="ring"></div>
+     <div class="eyebrow">${NM()?esc(hi()+", "+NM()):"Life in Christ"}</div>
+     ${tgt?`<h1 style="font-size:25px">${esc(tgt[0].lessons[tgt[1]].title)}</h1><p>${esc(tgt[0].title)} · Lesson ${tgt[1]+1} of ${tgt[0].lessons.length}</p>
+     <button class="btn wh" data-go="lesson-${tgt[0].id}-${tgt[1]}">${(S.lastL&&S.lastL.startsWith(tgt[0].id+':'))||doneCount(tgt[0])?'Continue':'Begin'} your quiet time</button>`:
+     `<h1>Discover who He is.<br>Discover who you are.</h1><p>You've finished ${esc(ps.title)}. Choose your next step below.</p>`}
+   </section>
+   ${(()=>{const t=THOUGHTS[(((day-20767)%THOUGHTS.length)+THOUGHTS.length)%THOUGHTS.length];return `<div class="card votd" style="margin-top:12px"><div style="font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--blue-600)">Thought for the day</div><div style="font-family:'DM Serif Display',serif;font-size:24px;line-height:1.25;color:var(--blue-900);margin-top:4px">${esc(t[0])}</div><div class="vr">${esc(t[1])}</div>${shareRow(t[0]+' ('+t[1]+')')}</div>`})()}
+   <div style="text-align:right;margin-top:8px"><a class="lnk" id="chgPath" style="font-size:13.5px">${esc(P.label)} · change</a></div>
+   ${LOCKED()?`<div class="sec" style="margin-top:12px"><h2>Your journey</h2></div>${courseCard(sById('salvation'))}
+   <div class="card pad" style="background:var(--blue-50);margin-top:4px"><b>Take your time.</b> Read each story, ask your questions and explore who Jesus is. When you decide to follow Him, more courses will open here to help you grow.</div>`:
+   `<div class="sec" style="margin-top:12px"><h2>Your path</h2><span>step by step</span></div>
+   ${(PATHC[P.k]||MAIN).map((id,j,arr)=>courseCard(sById(id),arr.length>1?j+1:0)).join('')}
+   ${READW[P.k]?`<div class="sec"><h2>Read with others</h2><span>lead a study</span></div>
+   <p class="muted" style="margin:-4px 0 10px">Use these to lead a Discovery Bible study with someone else.</p>
+   ${READW[P.k].map(id=>courseCard(sById(id),0,id==='salvation'?'For friends who don\'t yet believe':'For new believers you are discipling')).join('')}`:''}
+   <div class="sec"><h2>Go deeper</h2><span>topic studies</span></div>
+   ${['revival',...DEEPER].filter(id=>!(PATHC[P.k]||[]).includes(id)).map(id=>courseCard(sById(id))).join('')}`}
+   <div class="sec"><h2>Verse for today</h2></div>
+   <div class="card votd"><div class="vt">${v.vs.map(x=>esc(vt(x))).join(' ')}</div><div class="vr">${esc(v.ref)} (${VER[VN()].n})</div>${shareRow(v.vs.map(vt).join(' ')+' ('+v.ref+', '+VER[VN()].n+')')}</div>
+   <div class="foot">Made by Gemma Pyne-Bailey<br>Scripture: King James Version (public domain).<br>Hebrew &amp; Greek: Strong's Concordance via Open Scriptures (CC BY-SA).</div>`;
+  $('#chgPath').onclick=()=>{S.path=null;save();render()};
+}
+// ---------- TOOLS ----------
+function viewTools(){
+  brandTop();
+  const T=(go,ic,t,d,id)=>`<button class="card askbox" ${go?`data-go="${go}"`:`id="${id}"`} style="margin-bottom:10px"><div class="q">${ic}</div><div><b>${t}</b><div class="muted">${d}</div></div></button>`;
+  const big=x=>x.replace('<svg','<svg width="22" height="22"');
+  $('#main').innerHTML=`<h2 style="font-size:26px;color:var(--blue-900);margin:4px 0 12px">Tools</h2>
+   <div class="group" style="margin-top:0">Share</div>${T('hand',big(IC.hands),'The Gospel on the Hand','Learn and practise sharing the gospel with five fingers')}
+   <div class="group">Pray &amp; study</div>${T('pray',big(IC.hands),'Prayer Builder','Write your own prayer using the five parts Jesus taught')}
+   ${T('sos',big(IC.book),'S.O.S. Bible Study','Any passage: what does it Say, what must I Obey, with whom can I Share?')}
+   ${T('search',big(IC.search),'Word search','Hebrew &amp; Greek meanings (Strong\'s), and search every verse')}
+   ${samp?T(null,IC.ask,'Ask a Bible question','Your study guide answers from the Scriptures','askTool'):''}`;
+  const a=$('#askTool'); if(a) a.onclick=()=>openAsk(null);
+}
+
+// ---------- SERIES ----------
+function viewSeries(id){
+  const s=sById(id); if(!s||(LOCKED()&&id!=='salvation')) return go('home');
+  backTop(s.title,'home');
+  let g=null, html='';
+  s.lessons.forEach((L,i)=>{
+    if(L.group&&L.group!==g){g=L.group;html+=`<div class="group">${esc(g)}</div>${s.groupnotes&&s.groupnotes[g]?`<p class="muted" style="margin:-4px 4px 10px">${esc(s.groupnotes[g])}</p>`:''}`}
+    const d=S.done[lid(s.id,i)];
+    html+=`<button class="card lesson ${d?'done':''}" data-go="lesson-${s.id}-${i}"><div class="n">${d?'✓':i+1}</div><div class="t"><b>${esc(L.title)}</b><small>${esc(L.sub)}</small></div><span class="chev">${IC.chev}</span></button>`;
+  });
+  const d=doneCount(s),n=s.lessons.length;
+  const next=s.lessons.findIndex((_,i)=>!S.done[lid(s.id,i)]);
+  $('#main').innerHTML=`<section class="shead" style="--c:${SCOL[s.id]}"><div class="tg">${esc(s.tag)}</div><h1>${esc(s.title)}</h1><p>${esc(s.intro)}</p>
+   <div class="bar" style="background:rgba(255,255,255,.2);margin-top:16px"><i style="width:${d/n*100}%;background:#fff"></i></div>
+   <div style="font-size:13px;opacity:.85;margin-top:6px">${d} of ${n} complete</div>
+   ${next>=0?`<button class="btn wh" style="margin-top:14px" data-go="lesson-${s.id}-${next}">${d?'Continue':'Begin course'}</button>`:''}</section>
+   ${s.credit?`<p class="muted" style="margin:10px 4px 0">${esc(s.credit)}</p>`:''}${g?'':'<div style="height:16px"></div>'}${html}`;
+}
+
+// ---------- LESSON PLAYER ----------
+function stepsFor(L){
+  const st=['prepare','lookback','read','say','dig','obey'];
+  if(L.prayer) st.push('pray');
+  st.push('tell','remember'); return st;
+}
+const LEADER={
+ prepare:['Look back · about 20 to 40 minutes for this section','Welcome everyone and make sure phones are on silent.','Ask someone to open with a short prayer for the Holy Spirit to guide the group.'],
+ lookback:['Share & care, then accountability, then worship','Go round the group: one joy and one struggle each. Pray for one another.','Ask each person what God said to them to do last time, and who they shared with. Answer first yourself to model honesty.','Close this section with a song, a Psalm or a testimony of answered prayer.'],
+ read:['Look up · about 20 to 40 minutes for this section','Ask different people to read the passage aloud. Read it at least twice, in a different version if you can (try BBE or WEB above).','If someone struggles to read, use Listen.'],
+ say:['Let the group discover','Ask the questions and wait. Aim for you talking 30%, them 70%.','Never demand a "correct" answer. If someone goes off track, ask: "Where do you see that in the passage?"','Stay on the passage; park side questions for later.'],
+ dig:['Keep it short','Share this teaching only if it helps the group. The Holy Spirit is the teacher, not you.'],
+ obey:['Obedience, not just knowledge','Ask each person: "What is God saying to you to do or obey?" Let everyone answer.','Write their answers down so you can follow up next time.','Give space for people to talk to Jesus in prayer.'],
+ pray:['Handle with care','Give space and don\'t pressure anyone. Offer to pray with people one to one.'],
+ tell:['Look forward · about 20 to 40 minutes for this section','Each person names one person they will share with this week.','Pair up and practise retelling the story or the gospel.','Close by praying for boldness for one another.'],
+ remember:['Send them out','Say the memory verse together, out loud.','Pray a commissioning prayer over the group. Agree when you will meet next.']};
+const STEPNAME={prepare:'Quiet time',lookback:'Share & care',read:'Read it aloud',say:'What does it say?',dig:'Dig deeper',obey:'What must I obey?',pray:'Pray',tell:'Go and tell',remember:'Remember & declare'};
+const SECTION={prepare:'Look back',lookback:'Look back',read:'Look up',say:'Look up',dig:'Look up',obey:'Look up',pray:'Look up',tell:'Look forward',remember:'Look forward'};
+const TA=(k,ph,h)=>`<textarea data-k="${k}" placeholder="${esc(ph)}" style="margin-top:10px;${h?'min-height:'+h+'px':''}">${esc(S.notes[k]||'')}</textarea><div class="saved" data-sv="${k}"></div>`;
+const THINK=(title,qs)=>`<div class="card pad" style="margin-bottom:12px;background:var(--blue-50)"><b>${esc(title)}</b><ul style="margin:8px 0 0;padding-left:20px;line-height:1.7">${qs.map(q=>`<li>${esc(q)}</li>`).join('')}</ul></div>`;
+const OPT=(k,ph)=>`<details style="margin:-4px 0 12px" ${S.notes[k]?'open':''}><summary class="lnk" style="padding:4px 2px">Write it down (optional)</summary>${TA(k,ph||'Write here...',80)}</details>`;
+const QB=(q,k,ph,h)=>`<div class="card pad" style="margin-bottom:12px"><b style="font-size:16.5px">${esc(q)}</b>${TA(k,ph||'Write your answer...',h||96)}</div>`;
+function prevLesson(nid){
+  let best=null;
+  for(const [k,t] of Object.entries(S.done)){ if(k===nid) continue; if(!best||t>best[1]) best=[k,t]; }
+  if(!best) return null;
+  const [sid,i]=best[0].split(':'); const s=sById(sid); if(!s||!s.lessons[+i]) return null;
+  return {key:best[0],L:s.lessons[+i],obey:S.notes[best[0]+':obey'],share:S.notes[best[0]+':share']};
+}
+function viewLesson(sid,i,k){
+  const s=sById(sid); if(!s||!s.lessons[i]||(LOCKED()&&sid!=='salvation')) return go('home');
+  const L=s.lessons[i], st=stepsFor(L); k=Math.max(0,Math.min(k,st.length-1));
+  S.lastL=lid(sid,i); save();
+  backTop(`${s.short} · Lesson ${i+1}`,k>0?`lesson-${sid}-${i}-${k-1}`:'series-'+sid);
+  const step=st[k], nid=`${sid}:${i}`;
+  const veteran=Object.keys(S.done).some(x=>x!==nid);
+  const prog=`<div class="prog">${st.map((_,j)=>`<i class="${j<=k?'on':''}"></i>`).join('')}</div>`;
+  let body='', nextLabel='Continue', nextOK=true;
+  if(step==='prepare'){
+    body=`<h2>${esc(L.title)}</h2><p class="lead">${esc(L.sub)}</p>
+     ${L.question?`<div class="card pad" style="margin-bottom:12px;border-left:4px solid var(--blue-600)"><div class="muted">Today's question</div><b style="font-size:18px;color:var(--blue-900)">${esc(L.question)}</b></div>`:''}
+     <div class="card pad"><b style="font-size:17px">${NM()?esc(NM())+", set":"Set"} aside 15 minutes with God</b>
+      <p style="margin:8px 0 0">Before you begin, turn on <b>Do Not Disturb</b> or silence your notifications. Put everything else down. For the next 15 minutes, this is your quiet time with God.</p>
+      <label style="display:flex;gap:10px;align-items:center;margin-top:14px;font-weight:600"><input type="checkbox" id="dnd" style="width:22px;height:22px;accent-color:var(--blue-600)"> My notifications are silenced</label></div>
+     <div class="card prayer" style="margin-top:12px"><div class="muted" style="font-family:Inter,sans-serif;margin-bottom:8px">Pray this quick prayer, out loud or in your heart:</div>
+      Holy Spirit, ${NM()?'I, '+esc(NM())+', invite':'I invite'} You into this time. Quicken my understanding as I read Your Word. Open the eyes of my heart, teach me what is true, and show me what the Father wants me to see today. In Jesus' name, Amen.</div>`;
+    nextLabel="I've prayed. I'm ready"; nextOK=veteran;
+  }
+  else if(step==='lookback'){
+    const P=prevLesson(nid);
+    body=`<h2>Look back</h2><p class="lead">Before we open the Word, pause and look back at your journey with God.</p>
+     ${QB('How are you doing today? What are you thankful for, and what are you struggling with?',nid+':care','Be honest with God. He cares about every part of your life.')}
+     ${P&&P.obey?`<div class="card pad" style="margin-bottom:12px;background:var(--blue-50)"><div class="muted">Last time (${esc(P.L.title)}), you wrote that God was saying to you:</div><div style="margin-top:4px;font-style:italic">"${esc(P.obey)}"</div></div>${QB('How did it go? Did you obey?',nid+':account','Celebrate every step. If you struggled, tell God about it.')}`:''}
+     ${P&&P.share?`<div class="card pad" style="margin-bottom:12px;background:var(--blue-50)"><div class="muted">You planned to share with:</div><div style="margin-top:4px;font-weight:600">${esc(P.share)}</div></div>${QB('Did you share with them? How did it go?',nid+':shared')}`:''}
+     ${P?'':`<div class="card pad" style="margin-bottom:12px;background:var(--blue-50)"><div class="muted">After each lesson you will choose one step to obey and one person to share with. Next time, you will look back on how it went.</div></div>`}
+     <div class="card prayer"><div class="muted" style="font-family:Inter,sans-serif;margin-bottom:6px">Worship</div>Take a moment to praise God for one thing He has done for you. Say it out loud, sing a song, or pray over your struggles before you continue.</div>`;
+  }
+  else if(step==='read'){
+    const n=+(S.notes[nid+':reads']||0);
+    body=`<h2>Read it aloud, three times</h2><p class="lead">Read these verses out loud, slowly. Then read them again, and a third time. Let the words sink in. Each time you finish, tap the next circle.${veteran?' (Optional after your first lesson.)':''}</p>
+     ${verPicker()}${listenBtn('lsn')}
+     ${L.verses.map(p=>`<div class="card passage" data-b="${p.b}"><div class="ref"><span>${esc(p.ref)}</span><button data-fav="${esc(p.ref)}" class="${S.fav.includes(p.ref)?'on':''}" aria-label="Save verse">${S.fav.includes(p.ref)?IC.starF:IC.starO}</button></div>
+     <div class="scr">${p.vs.map(v=>(p.vs.length>1?`<sup>${v.v}</sup>`:'')+esc(vt(v))).join(' ')}</div></div>`).join('')}
+     ${gwLinks(L.refs)}
+     <div class="card pad" style="text-align:center"><div class="muted" style="margin-bottom:10px">Times read aloud</div>
+      <div style="display:flex;gap:14px;justify-content:center">${[1,2,3].map(j=>`<button class="rd" data-r="${j}" style="width:58px;height:58px;border-radius:50%;font-weight:700;font-size:18px;border:2px solid var(--blue-300);${j<=n?'background:var(--blue-600);color:#fff;border-color:var(--blue-600)':'background:#fff;color:var(--blue-700)'}">${j<=n?'✓':j}</button>`).join('')}</div>
+      </div>`;
+    nextOK=veteran||n>=3;
+  }
+  else if(step==='say'){
+    const asks=(L.ask&&L.ask.length?L.ask:['What do you learn about God in these verses?','What do you learn about people, or about yourself?']);
+    body=`<h2>What does it say?</h2><p class="lead">There are no wrong answers here. The Holy Spirit is your teacher. Look back at the verses as you answer.</p>
+     <details class="card pad" style="margin-bottom:12px" ${L.verses.reduce((n,p)=>n+p.vs.length,0)<=6?'open':''}><summary style="font-weight:600;color:var(--blue-700);cursor:pointer">Look back at the verses: ${esc(L.refs.join(', '))}</summary><div style="margin-top:10px">${L.verses.map(p=>`<div style="margin-bottom:8px"><b style="color:var(--blue-700);font-size:13.5px">${esc(p.ref)}</b><div class="scr" style="font-size:15.5px;line-height:1.6">${esc(p.vs.map(vt).join(' '))}</div></div>`).join('')}</div></details>
+     <div class="card pad" style="margin-bottom:12px"><b style="font-size:16.5px">What do you understand from this scripture?</b>${TA(nid+':understand','Type whatever comes to you...')}
+      ${samp?`<button class="btn gh" id="guideBtn" style="width:100%;margin-top:6px">Share with my guide</button>`:''}<div id="guideOut"></div></div>
+     ${THINK('Think about these quietly, or talk them over with your group:',asks)}${OPT(nid+':noticed','What else did you notice?')}`;
+  }
+  else if(step==='dig'){
+    body=`<h2>Dig deeper</h2><div class="card pad" style="margin-bottom:12px"><div class="note">${esc(L.note)}</div></div>
+     ${samp?`<button class="card askbox" id="askIn" style="margin-bottom:12px"><div class="q">${IC.ask}</div><div><b>Something not clear?</b><div class="muted">Ask a question about this lesson</div></div></button>`:''}`;
+  }
+  else if(step==='obey'){
+    const ptool=L.praytool?`<button class="card askbox" data-go="pray" style="margin-bottom:12px;border:2px solid var(--blue-300)"><div class="q">${IC.hands.replace('<svg','<svg width="22" height="22"')}</div><div><b>Open the Prayer Builder</b><div class="muted">Write your prayer with Praise, Purpose, Provision, Pardon, Protection</div></div></button>`:'';
+    body=`<h2>What must I obey?</h2><p class="lead">We study the Bible to obey it, not just to know it. Be still, listen, and write what the Holy Spirit is prompting <b>you</b> to do.</p>
+     ${NM()&&L.refs.includes('John 3:16')?`<div class="card prayer" style="margin-bottom:12px">For God so loved <b>${esc(NM())}</b>, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life.<div class="muted" style="font-family:Inter,sans-serif;margin-top:6px">John 3:16, with your name in it</div></div>`:''}
+     ${THINK('Be still and listen:',['What is God showing you about Himself?','What is God showing you at this hour?','What have you learnt from this?','Is there a promise to hold on to, a command to obey, a sin to avoid, or an example to follow?',L.reflect])}${OPT(nid+':reflect','What is God showing you?')}
+     ${ptool}${L.sostool?`<button class="card askbox" id="sosGo" style="margin-bottom:12px;border:2px solid var(--blue-300)"><div class="q">${IC.book.replace('<svg','<svg width="22" height="22"')}</div><div><b>Start S.O.S. with Mark 1:1-20</b><div class="muted">Say · Obey · Share</div></div></button>`:''}
+     <div class="card pad" style="margin-bottom:12px;border:2px solid var(--blue-300)"><b style="font-size:16.5px">What is God saying to you to do or obey?</b><div class="muted" style="margin-top:2px">Write freely, in your own words. Next time, you will look back on it.</div>${TA(nid+':obey','Write freely...',90)}</div>
+     <div class="card prayer" style="margin-bottom:12px"><div class="muted" style="font-family:Inter,sans-serif;margin-bottom:6px">Talk to Jesus</div><b style="font-family:Inter,sans-serif">What do you want to say to Jesus after reading this passage?</b><div class="muted" style="font-family:Inter,sans-serif;margin-top:2px">Say it out loud, or write it as a prayer.</div>${TA(nid+':talk','Jesus, ...',80)}</div>`;
+  }
+  else if(step==='pray'){
+    body=`<h2>Pray</h2><p class="lead">If you are ready to receive Jesus, you can talk to God right now. These words are not magic; what matters is your heart. You can pray them out loud or in your own words.</p>
+     <div class="card prayer">Dear God,<br>${NM()?"I, "+esc(NM())+", know":"I know"} that I have sinned and fallen short of Your glory. I am sorry, and I turn away from my sin.<br>I believe that Jesus Christ is Your Son, that He died on the cross for my sins, and that You raised Him from the dead.<br>Today I open the door of my heart. Jesus, come in and be my Lord and Saviour.<br>Thank You for forgiving me and giving me eternal life. Fill me with Your Holy Spirit and help me to follow You every day.<br>In Jesus' name, Amen.</div>
+     ${S.saved?`<div class="card celebrate" style="margin-top:14px"><div class="big">🎉</div><h2 style="font-size:24px">Welcome to the family${NM()?', '+esc(NM()):''}!</h2><p class="muted">You prayed to receive Jesus on ${esc(new Date(S.saved).toDateString())}. "There is joy in the presence of the angels of God over one sinner that repenteth." (Luke 15:10)</p><p style="margin:10px 0 0">Your next step is <b>New Life in Christ</b>. It will help you grow in your new life. Finish this lesson, then continue there.</p></div>`:
+      `<div style="display:grid;gap:10px;margin-top:14px"><button class="btn pri" id="prayed">I prayed this prayer today</button><button class="btn gh" id="notyet">I'm not ready yet</button></div><div id="pfb"></div>`}`;
+  }
+  else if(step==='tell'){
+    body=`<h2>Go and tell</h2><p class="lead">What God gives you is meant to be passed on. Think of the people in your life who need to hear this.</p>
+     <div class="card pad" style="margin-bottom:12px;border:2px solid var(--blue-300)"><b style="font-size:16.5px">With whom will you share what you learnt today?</b>
+      <input data-k="${nid}:share" value="${esc(S.notes[nid+':share']||'')}" placeholder="A name, or names" style="width:100%;margin-top:10px;border:1.5px solid var(--line);border-radius:14px;padding:12px 14px;outline:none"><div class="saved" data-sv="${nid}:share"></div></div>
+     ${THINK('Get ready to share:',[L.story?'Retell the story out loud in your own words, as if to a friend. What is the main point?':'Practise out loud: how would you explain what God showed you today, in a few sentences?','Is there anyone you can invite to do this study with you?'].concat(L.tellnote?[L.tellnote]:[]))}
+     ${L.peoplelist?`<div class="group">My people list</div><div class="card pad" style="margin-bottom:12px"><b>Write down everyone you know</b>, starting with family, then friends and acquaintances. One name per line. Thank God for those who already know Jesus; the rest are the people you will share with in the coming weeks.${TA('people','Mum\nAuntie Fatu\nMohamed from work...',140)}</div>
+       <div class="group">My 2-minute story</div><div class="card pad" style="margin-bottom:12px"><div class="muted">Keep it under 2 minutes. Rehearse it, then practise it aloud with someone.</div>
+       <b style="display:block;margin-top:10px">My life before Jesus</b>${TA('story:before','Before I knew Jesus...',70)}<b style="display:block;margin-top:4px">How I met Jesus</b>${TA('story:met','I met Jesus when...',70)}<b style="display:block;margin-top:4px">How He has changed my life</b>${TA('story:after','Since then...',70)}</div>`:''}
+     <button class="card askbox" data-go="hand" style="margin-bottom:12px"><div class="q">${IC.hands.replace('<svg','<svg width="22" height="22"')}</div><div><b>Practise the Gospel on the Hand</b><div class="muted">A simple way to share the whole gospel</div></div></button>
+     <div class="card prayer"><div class="muted" style="font-family:Inter,sans-serif;margin-bottom:6px">Pray for boldness</div>Lord, give me boldness to share what You have done for me. Prepare the heart of ${S.notes[nid+':share']?esc(S.notes[nid+':share']):'the person I will share with'}, and give me the right words at the right time. In Jesus' name, Amen.</div>`;
+  }
+  else if(step==='remember'){
+    const pool=[...new Set(s.lessons.map(x=>x.blank).filter(b=>b.toLowerCase()!==L.blank.toLowerCase()))];
+    let seed=i*7+3; const pick=[];
+    while(pick.length<3&&pool.length){seed=(seed*31+11)%9973;pick.push(pool.splice(seed%pool.length,1)[0])}
+    const opts=[L.blank,...pick].sort((a,b)=>((a.charCodeAt(0)*13+i)%7)-((b.charCodeAt(0)*13+i)%7));
+    const words=(VN()==='bbe'?L.memE:VN()==='web'?L.memW:L.memtext||L.memtext).split(' ');
+    body=`<h2>Remember &amp; declare</h2>
+     <div class="group" style="margin-top:0">Hide it in your heart</div>
+     <div class="card pad" style="margin-bottom:12px"><b style="color:var(--blue-700);font-size:14px">${esc(L.memory)}</b>
+      <div class="scr" id="mem" style="margin-top:6px">${words.map((w,j)=>`<span class="mw" data-j="${j}">${esc(w)}</span>`).join(' ')}</div>
+      <div style="display:flex;gap:8px;margin-top:12px"><button class="btn gh" id="hideMore" style="flex:1">Hide some words</button><button class="btn out" id="showAll" style="flex:1">Show all</button></div>
+      <div class="muted" style="margin-top:8px">Say the verse out loud. Each time, hide more words until you can say it from memory.</div></div>
+     <div class="group">Complete the truth</div>
+     <div class="card blankline" id="bl">${blankSentence(L)}</div>
+     <div class="opts" style="grid-template-columns:1fr 1fr">${opts.map(o=>`<button class="opt" data-o="${esc(o)}">${esc(o)}</button>`).join('')}</div>
+     <div id="fb" class="muted" style="margin-top:10px;min-height:20px"></div>
+     ${L.readv&&L.readv.length?`<div class="group">This week</div><div class="card pad" style="margin-bottom:12px"><div><b>Read:</b> ${L.readv.map(p=>esc(p.ref)).join(', ')}</div>${L.readv.map(p=>`<details style="margin-top:8px"><summary class="lnk">${esc(p.ref)}</summary><div class="scr" style="font-size:15.5px;margin-top:6px">${p.vs.map(v=>`<sup>${v.v}</sup>${esc(vt(v))}`).join(' ')}</div></details>`).join('')}
+       <div style="margin-top:10px"><b>Practise</b> sharing the gospel until you can do it confidently.</div><div style="margin-top:6px"><b>Train</b> at least one believer outside your group with this lesson, just as you were trained.</div></div>`:''}
+     <div class="declare" style="margin-top:14px"><div style="font-size:13px;opacity:.85;margin-bottom:8px">Declare it out loud</div><div class="q">"${esc(L.declare)}"</div><small>${esc(L.refs.join(' · '))}</small></div>`;
+    nextLabel=S.done[nid]?'Lesson complete ✓':'Complete lesson';
+  }
+  const last=k===st.length-1;
+  const lead=S.leader&&LEADER[step]?`<div class="card pad" style="margin-bottom:14px;background:#0B2A5B;color:#fff;border:0"><div style="font-size:11.5px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;opacity:.8">Leader notes · ${esc(LEADER[step][0])}</div><ul style="margin:8px 0 0;padding-left:18px;line-height:1.6">${LEADER[step].slice(1).map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`:'';
+  $('#main').innerHTML=`${prog}<div class="stepnm">${SECTION[step]} · Step ${k+1} of ${st.length} · ${STEPNAME[step]}</div>${lead}<div class="step">${body}</div>
+   <div class="navbtns">${k>0?`<button class="btn gh" data-go="lesson-${sid}-${i}-${k-1}">Back</button>`:''}
+   <button class="btn pri" id="nx" ${nextOK?'':'disabled'}>${nextLabel}</button></div>
+   <div style="text-align:center;margin-top:16px"><a class="lnk" id="leadT" style="font-size:13.5px">${S.leader?'Leader mode is on · turn off':'Leading a group? Turn on leader mode'}</a></div>
+   ${samp?`<button class="btn fab" id="askF">${IC.ask} Ask</button>`:''}`;
+  const nx=$('#nx');
+  bindListen('lsn',()=>L.verses.map(p=>p.ref+'. '+p.vs.map(vt).join(' ')).join('. '));
+  const lt=$('#leadT'); if(lt) lt.onclick=()=>{S.leader=!S.leader;save();render()};
+  nx.onclick=()=>{
+    if(!last) return go(`lesson-${sid}-${i}-${k+1}`);
+    S.done[nid]=Date.now(); save();
+    let ni=i+1<s.lessons.length?i+1:null;
+    if(sid==='salvation'&&ni!=null&&s.lessons[ni].group!==L.group&&!S.done[lid(sid,s.lessons.length-1)])ni=s.lessons.length-1;
+    const ob=S.notes[nid+':obey'], sh=S.notes[nid+':share'];
+    $('#main').innerHTML=`<div class="card celebrate" style="margin-top:10px"><div class="big">✨</div><h2 style="font-size:26px;color:var(--blue-900)">${NM()?"Well done, "+esc(NM())+"!":"Lesson complete"}</h2>
+      <p class="muted">${esc(L.title)}</p>
+      ${ob||sh?`<div class="card pad" style="text-align:left;margin:14px 0;background:var(--blue-50)"><div class="muted">This week</div>${ob?`<div style="margin-top:4px"><b>God is saying to me:</b> ${esc(ob)}</div>`:''}${sh?`<div style="margin-top:4px"><b>I will share with:</b> ${esc(sh)}</div>`:''}</div>`:''}
+      <div class="declare" style="margin:16px 0"><div class="q" style="font-size:21px">"${esc(L.declare)}"</div></div>
+      <div style="display:grid;gap:10px">${ni!=null?`<button class="btn pri" data-go="lesson-${sid}-${ni}">Next: ${esc(s.lessons[ni].title)}</button>`:(sid==='salvation'&&S.saved?`<button class="btn pri" data-go="lesson-newlife-0">Next: New Life in Christ</button>`:`<button class="btn pri" data-go="home">Course complete! Choose another</button>`)}
+      <button class="btn gh" data-go="series-${sid}">Back to ${esc(s.short)}</button></div></div>`;
+    window.scrollTo(0,0);
+  };
+  document.querySelectorAll('textarea[data-k],input[data-k]').forEach(ta=>{let t;ta.oninput=()=>{clearTimeout(t);t=setTimeout(()=>{S.notes[ta.dataset.k]=ta.value;save();const sv=document.querySelector(`[data-sv="${ta.dataset.k}"]`);if(sv){sv.textContent='Saved ✓';setTimeout(()=>sv.textContent='',1500)}},400)}});
+  const dnd=$('#dnd'); if(dnd) dnd.onchange=()=>{nx.disabled=!dnd.checked};
+  document.querySelectorAll('.rd').forEach(b=>b.onclick=()=>{const j=+b.dataset.r;const cur=+(S.notes[nid+':reads']||0);S.notes[nid+':reads']=j<=cur?j-1:j;save();render()});
+  const gb=$('#guideBtn'); if(gb) gb.onclick=()=>guideReply(L,s,nid,gb);
+  document.querySelectorAll('[data-fav]').forEach(b=>b.onclick=e=>{e.stopPropagation();const r=b.dataset.fav;const j=S.fav.indexOf(r);if(j>=0)S.fav.splice(j,1);else S.fav.push(r);save();b.classList.toggle('on',j<0);b.innerHTML=j<0?IC.starF:IC.starO});
+  let lvl=0; const hm=$('#hideMore');
+  if(hm){const apply=()=>document.querySelectorAll('.mw').forEach(w=>{const j=+w.dataset.j;const h=lvl>=4||(j%4)<lvl;w.style.color=h?'transparent':'';w.style.background=h?'var(--blue-100)':'';w.style.borderRadius='4px'});
+    hm.onclick=()=>{lvl=Math.min(4,lvl+1);apply();hm.textContent=lvl>=4?'All hidden':'Hide more words'};
+    $('#showAll').onclick=()=>{lvl=0;apply();hm.textContent='Hide some words'};
+    document.querySelectorAll('.mw').forEach(w=>w.onclick=()=>{w.style.color=''});}
+  document.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+    const ok=b.dataset.o===L.blank;
+    if(ok){document.querySelectorAll('.opt').forEach(x=>x.disabled=true);b.classList.add('good');$('#bl').innerHTML=esc(L.declare);$('#fb').innerHTML='<b style="color:var(--ok)">Yes!</b> Now say it out loud below.'}
+    else{b.classList.add('badx');b.disabled=true;$('#fb').textContent='Not quite. Try another word.'}
+  });
+  const pr=$('#prayed'); if(pr) pr.onclick=()=>{receivedJesus();render()};
+  const ny=$('#notyet'); if(ny) ny.onclick=()=>{$('#pfb').innerHTML=`<div class="card pad" style="margin-top:12px">That's okay. God is patient, and honest questions are welcome. ${samp?'Tap <b>Ask</b> below to talk through what is holding you back, or':'You can'} keep exploring the course, and talk to a Christian you trust or a local pastor.</div>`};
+  const sg=$('#sosGo'); if(sg) sg.onclick=()=>{S.notes['sos:ref']='Mark 1:1-20';save();go('sos')};
+  const af=$('#askF'); if(af) af.onclick=()=>openAsk({s,L,step});
+  const ai=$('#askIn'); if(ai) ai.onclick=()=>openAsk({s,L,step});
+}
+async function guideReply(L,s,nid,btn){
+  const ta=document.querySelector(`textarea[data-k="${nid}:understand"]`); const txt=(ta&&ta.value||'').trim();
+  const out=$('#guideOut'); if(!txt){out.innerHTML='<p class="muted">Write what you understand first, then share it.</p>';return}
+  S.notes[nid+':understand']=txt; save(); btn.disabled=true;
+  out.innerHTML='<div class="msg ai" style="margin-top:12px;max-width:100%">Thinking...</div>';
+  const passage=L.verses.map(p=>p.ref+' ('+VER[VN()].n+'): '+p.vs.map(vt).join(' ')).join('\n');
+  const prompt=`You are a gentle Bible study guide in the app "Bible Discovery: Life in Christ". A learner has just prayed for the Holy Spirit to guide them, read these verses aloud three times, and written what they understand.
+
+Verses:
+${passage}
+
+Lesson theme: ${L.title} (${s.title})${NM()?`\nThe learner\'s name is ${NM()}; you may greet them by name.`:''}
+
+What the learner understood:
+"""${txt}"""
+
+Respond warmly in under 120 words, in plain simple English. Affirm what in their answer is true to the text. If they drifted away from the verses or said something the verses don't say, gently bring them back to the actual words of Scripture by quoting the relevant phrase. Don't lecture or give a full teaching; let the Holy Spirit be the teacher and the Word do the work. Never demand a "correct" answer. Remember we study for obedience, not just knowledge. End with one short question that sends them back into the passage to discover more. No markdown headings.`;
+  try{
+    const r=await samp(prompt,{cache:false,onText:({text})=>{out.innerHTML=`<div class="msg ai" style="margin-top:12px;max-width:100%">${esc(text)}</div>`}});
+    out.innerHTML=`<div class="msg ai" style="margin-top:12px;max-width:100%">${esc(r.text)}</div><button class="btn out" id="moreQ" style="width:100%;margin-top:10px">Ask a follow-up question</button>`;
+    $('#moreQ').onclick=()=>openAsk({s,L,step:'understand'});
+  }catch(e){out.innerHTML=`<p class="muted">${e&&e.code==='rate_limited'?'Please wait a moment and try again.':'Your guide could not answer just now. Look back at the verses: which exact words support what you wrote?'}</p>`}
+  btn.disabled=false; btn.textContent='Share again';
+}
+function wordCard(n,e,primary){
+  const [lem,xl,pr,def,kjv,der]=e;
+  return `<div class="card word"><div class="num">${n[0]==='H'?'HEBREW':'GREEK'} · STRONG'S ${n}</div>
+   <div class="lem">${scriptLemma(n,lem)}</div><div class="xl">${esc(xl)}</div>${pr?`<div class="pr">pronounced: ${esc(pr)}</div>`:''}
+   <dl><dt>Meaning</dt><dd>${cleanDef(def)}</dd><dt>Translated in the KJV as</dt><dd>${cleanDef(kjv)}</dd>${der?`<dt>Root</dt><dd>${cleanDef(der)}</dd>`:''}</dl>
+   <div style="margin-top:12px"><a class="lnk" data-go="word-${n}">Open full word page →</a></div></div>`;
+}
+
+// ---------- Sheet ----------
+function openSheet(t,html,foot){$('#shT').textContent=t;$('#shB').innerHTML=html;$('#shF').innerHTML=foot||'';$('#sheet').classList.add('open');$('#scrim').classList.add('open')}
+function closeSheet(){$('#sheet').classList.remove('open');$('#scrim').classList.remove('open')}
+$('#shX').onclick=closeSheet;$('#scrim').onclick=closeSheet;
+
+// tap a word in Scripture
+const STOPW=new Set('the and of to in that he shall unto for i his a they be is him not them it with all thou thy was which my me but ye have said will are this from were when by as there o thee or on so their then an we her she if what at us our out up who hath had do been even upon shalt into your one you also these let no hast now'.split(' '));
+function stems(w){w=w.toLowerCase().replace(/'s$/,'');const out=[w];[['eth',''],['est',''],['edst',''],['ed',''],['ing',''],['ies','y'],['es',''],['s',''],['eth','e'],['ed','e'],['ing','e'],['est','e']].forEach(([a,b])=>{if(w.endsWith(a)&&w.length-a.length>2)out.push(w.slice(0,-a.length)+b)});return [...new Set(out)]}
+async function wordPop(word,b){
+  const lang=isOT(b)?'H':'G';
+  openSheet(`"${word}"`,'<div class="spin"></div>');
+  if(STOPW.has(word.toLowerCase())){$('#shB').innerHTML=`<p class="muted">"${esc(word)}" is a very common small word, so it matches too many original words to be helpful. Try tapping a more meaningful word in the verse.</p>`;return}
+  await loadLex();
+  const res=lexSearch(stems(word),lang).slice(0,8);
+  $('#shB').innerHTML=`<p class="muted" style="margin-top:0">Possible ${lang==='H'?'Hebrew':'Greek'} words translated "${esc(word)}" in the KJV, from Strong's Concordance:</p>`+
+   (res.length?res.map(resRow).join(''):`<div class="empty">No match found for this word.</div>`)+
+   `<button class="btn out" style="width:100%;margin-top:6px" data-go="search">Open search directory</button>`;
+}
+
+// ---------- Ask (sample) ----------
+let chatLog=[], chatCtx=null, busy=false;
+function openAsk(ctx){
+  if(!samp) return;
+  const key=ctx?ctx.L.title:'general';
+  if(!chatCtx||chatCtx.key!==key){chatLog=[];chatCtx={key,ctx}}
+  const sugg=ctx?[`What does "${ctx.L.title}" mean for my everyday life?`,`Can you explain ${ctx.L.refs[0]} more simply?`,`What does the original word ${ctx.L.word} tell us?`]:['How can I know I am saved?','What is the difference between grace and mercy?','Where do I start reading the Bible?'];
+  openSheet(ctx?`Ask about: ${ctx.L.title}`:'Ask a Bible question',`<div class="chat" id="chat"></div><div class="chips" id="chips">${sugg.map(q=>`<button class="chip">${esc(q)}</button>`).join('')}</div>`,
+   `<form class="composer" id="cf"><input id="ci" placeholder="Type your question..." autocomplete="off"><button class="send" aria-label="Send">${IC.send}</button></form>`);
+  drawChat();
+  document.querySelectorAll('#chips .chip').forEach(c=>c.onclick=()=>ask(c.textContent));
+  $('#cf').onsubmit=e=>{e.preventDefault();const v=$('#ci').value.trim();if(v){$('#ci').value='';ask(v)}};
+}
+function drawChat(){const c=$('#chat');if(!c)return;c.innerHTML=(chatLog.length?'':`<div class="msg ai">Hi! I'm your study guide. Ask me anything about ${chatCtx.ctx?'this lesson':'the Bible'}, and we'll discover the answer together from the Scriptures.</div>`)+chatLog.map(m=>`<div class="msg ${m.role==='user'?'me':'ai'}">${esc(m.content)}</div>`).join('');const b=$('#shB');b.scrollTop=b.scrollHeight}
+async function ask(q){
+  if(busy)return; busy=true; const ch=$('#chips'); if(ch) ch.remove();
+  chatLog.push({role:'user',content:q}); chatLog.push({role:'assistant',content:'Thinking...'}); drawChat();
+  const c=chatCtx.ctx;
+  const sys=`You are a warm, encouraging Bible study guide inside the app "Bible Discovery: Life in Christ". The learner is on a self-discovery journey, so help them discover truth from Scripture rather than lecturing.
+Rules: Answer in plain, simple English, under 160 words. Quote the King James Version with references. Teach historic, mainstream Christian belief (salvation by grace through faith in Jesus Christ); where Christians genuinely differ, say so briefly and kindly. Talk less and ask more: the learner should do most of the discovering. Let the Holy Spirit be the teacher, never demand correct answers, and point toward obeying what Scripture says, not just knowing it. Often end with one short question that helps the learner think further. Do not use markdown headings or tables. If someone shares that they are in danger, deeply distressed or being harmed, respond with care and encourage them to reach out right away to a trusted adult, pastor or local emergency help.
+${c?`Current course: ${c.s.title}. Lesson: ${c.L.title} (${c.L.sub}). Key verses: ${c.L.refs.join(', ')}. Key word: Strong's ${c.L.word} ${c.L.words[c.L.word][1]}. Lesson teaching: ${c.L.note}`:'The learner is asking a general Bible question.'}${NM()?`\nThe learner\'s name is ${NM()}. Use it naturally once in a while, not in every reply.`:''}`;
+  const hist=chatLog.slice(0,-1).map(m=>({role:m.role,content:m.content}));
+  hist[0]={role:'user',content:sys+'\n\nLearner\'s question: '+hist[0].content};
+  const msgs=hist;
+  try{
+    const r=await samp(msgs,{cache:false,onText:({text})=>{chatLog[chatLog.length-1].content=text;drawChat()}});
+    chatLog[chatLog.length-1].content=r.text||'(no answer)';
+  }catch(e){
+    chatLog[chatLog.length-1].content=e&&e.code==='rate_limited'?'Lots of questions right now. Please wait a moment and try again.':e&&e.code==='not_granted'?'Asking questions needs permission. Tap Ask again to allow it.':'Sorry, I could not answer just now. Please try again.';
+    if(e&&e.code==='not_granted'){}
+  }
+  busy=false; drawChat();
+}
+
+// ---------- Lexicon search ----------
+let lexIdx=null;
+const strip=s=>(s||'').normalize('NFD').replace(/[\u0300-\u036f\u0591-\u05C7ʼʻ'`ᵉ]/g,'').toLowerCase();
+function buildIdx(){const CW=new Set();SERIES.forEach(x=>x.lessons.forEach(L=>Object.keys(L.words).forEach(n=>CW.add(n))));lexIdx=Object.entries(LEX).map(([n,e])=>({n,lem:strip(e[0]),xl:strip(e[1]),kjv:(e[4]||'').toLowerCase(),def:(e[3]||'').toLowerCase(),cw:CW.has(n)}))}
+function lexSearch(terms,lang){
+  if(!lexIdx)buildIdx();
+  terms=(Array.isArray(terms)?terms:[terms]).map(t=>t.trim()).filter(Boolean); if(!terms.length)return [];
+  const t0=terms[0];
+  const num=t0.match(/^([hg])\s*0*(\d{1,5})$/i);
+  if(num){const k=num[1].toUpperCase()+num[2];return LEX[k]?[k]:[]}
+  const st=strip(t0), scored=[];
+  const res=terms.map(t=>new RegExp('(^|[^a-z])'+t.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'(?![a-z])'));
+  for(const x of lexIdx){
+    if(lang&&x.n[0]!==lang)continue;
+    let sc=0;
+    if(x.xl===st||x.lem===st)sc=100; else if(st.length>2&&(x.xl.startsWith(st)||x.lem.startsWith(st)))sc=60;
+    for(let j=0;j<res.length;j++){
+      if(res[j].test(x.kjv)){const first=x.kjv.split(/[,;]/).length;sc=Math.max(sc,50-(j?5:0)-Math.min(first,20)/2);}
+      else if(res[j].test(x.def))sc=Math.max(sc,25-(j?5:0));
+    }
+    if(sc){if(x.cw)sc+=30;scored.push([sc,x.n]);}
+  }
+  return scored.sort((a,b)=>b[0]-a[0]||(+a[1].slice(1))-(+b[1].slice(1))).map(a=>a[1]);
+}
+function resRow(n){const e=LEX[n];return `<a class="card res" data-go="word-${n}"><div class="h"><span class="lm ${n[0]==='H'?'heb':'grk'}">${esc(e[0])}</span><span class="xl">${esc(e[1])}</span><span class="nm">${n}</span></div><div class="d">${esc((e[3]||'').replace(/[{}]/g,'').slice(0,120))}${(e[3]||'').length>120?'…':''}</div></a>`}
+
+// ---------- SEARCH ----------
+let sMode='words', sQ='', sLang='';
+function viewSearch(){
+  backTop('Word search','tools');
+  const dir=[];const seen=new Set();
+  SERIES.forEach(s=>s.lessons.forEach(L=>Object.entries(L.words).forEach(([n,e])=>{if(!seen.has(n)){seen.add(n);dir.push([n,e,L.title])}})));
+  dir.sort((a,b)=>strip(a[1][1]).localeCompare(strip(b[1][1])));
+  $('#main').innerHTML=`<h2 style="font-size:26px;color:var(--blue-900);margin:4px 0 4px">Search directory</h2>
+   <p class="muted" style="margin:0 0 12px">Find the Hebrew and Greek meaning of a word, or search every verse in the Bible.</p>
+   <form class="sbox" id="sf"><input id="sq" value="${esc(sQ)}" placeholder="${sMode==='words'?'e.g. grace, love, H7965, agape':'e.g. born again, John 3:16'}" autocomplete="off" enterkeyhint="search"><button class="btn pri" style="padding:9px 16px">Search</button></form>
+   <div class="seg"><button data-m="words" class="${sMode==='words'?'on':''}">Hebrew &amp; Greek</button><button data-m="verses" class="${sMode==='verses'?'on':''}">Bible verses</button></div>
+   ${sMode==='words'?`<div class="chips" style="margin-top:0">${[['','All'],['H','Hebrew (OT)'],['G','Greek (NT)']].map(([k,l])=>`<button class="chip" data-l="${k}" style="${sLang===k?'background:var(--blue-600);color:#fff':''}">${l}</button>`).join('')}</div>`:''}
+   <div id="sr" style="margin-top:12px"></div>
+   <div id="sdir" ${sQ?'style="display:none"':''}>
+     <div class="sec" style="margin-top:18px"><h2 style="font-size:20px">Key words A–Z</h2><span>${dir.length} words from the courses</span></div>
+     <div class="dir">${dir.map(([n,e,t])=>`<button data-go="word-${n}"><b>${esc(e[1])}</b> <span>${n} · ${esc(t)}</span></button>`).join('')}</div>
+   </div>`;
+  $('#sf').onsubmit=e=>{e.preventDefault();sQ=$('#sq').value.trim();doSearch()};
+  document.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{sMode=b.dataset.m;viewSearch();navBar()});
+  document.querySelectorAll('[data-l]').forEach(b=>b.onclick=()=>{sLang=b.dataset.l;viewSearch();navBar()});
+  if(sQ)doSearch();
+}
+async function doSearch(){
+  const out=$('#sr'); const d=$('#sdir'); if(d)d.style.display=sQ?'none':'';
+  if(!sQ){out.innerHTML='';return}
+  out.innerHTML='<div class="spin"></div>';
+  if(sMode==='words'){
+    try{await loadLex()}catch(e){out.innerHTML='<div class="empty">Could not load the word library. Check your connection and try again.</div>';return}
+    const q=sQ.split(/\s+/).length>1?sQ:sQ;
+    const r=lexSearch(/^[a-z]+$/i.test(q)?stems(q):[q],sLang||null);
+    out.innerHTML=r.length?`<div class="muted" style="margin-bottom:8px">${r.length} result${r.length>1?'s':''}${r.length>60?' (showing top 60)':''}</div>`+r.slice(0,60).map(resRow).join(''):`<div class="empty">No original-language words found for "${esc(sQ)}". Try a simpler form of the word (e.g. "love" instead of "lovingly"), a Strong's number like G26, or a transliteration like "shalom".</div>`;
+  } else {
+    try{await loadBible()}catch(e){out.innerHTML='<div class="empty">Could not load the Bible text. Check your connection and try again.</div>';return}
+    const ref=parseRef(sQ);
+    if(ref){go(`bible-${ref.b}-${ref.c}`);return}
+    const terms=sQ.toLowerCase().replace(/[^a-z0-9' ]/g,' ').split(/\s+/).filter(Boolean);
+    const phrase=sQ.toLowerCase().trim();
+    const hits=[];
+    BIBLE.text.forEach((bk,b)=>bk.forEach((ch,c)=>ch.forEach((t,v)=>{const l=t.toLowerCase();if(l.includes(phrase)||terms.every(w=>new RegExp('\\b'+w+'\\b').test(l)))hits.push([b,c,v,t,l.includes(phrase)])})));
+    hits.sort((a,b)=>(b[4]-a[4]));
+    const re=new RegExp('\\b('+terms.map(w=>w.replace(/[.*+?^${}()|[\]\\]/g,'')).join('|')+')\\b','gi');
+    out.innerHTML=hits.length?`<div class="muted" style="margin-bottom:8px">${hits.length} verse${hits.length>1?'s':''}${hits.length>150?' (showing first 150)':''}</div>`+hits.slice(0,150).map(([b,c,v,t])=>`<a class="card vres" data-go="bible-${b}-${c+1}"><b>${BOOKS[b]} ${c+1}:${v+1}</b><div>${esc(t).replace(re,'<mark>$1</mark>')}</div></a>`).join(''):`<div class="empty">No verses found for "${esc(sQ)}".</div>`;
+  }
+}
+function parseRef(q){
+  const m=q.trim().match(/^((?:[123]\s*)?[a-z ]+?)\s*(\d+)(?::(\d+))?$/i); if(!m)return null;
+  const nm=m[1].replace(/\s+/g,' ').trim().toLowerCase(); if(nm.length<2)return null;
+  const alias={psalm:'psalms',ps:'psalms',song:'song of solomon',rev:'revelation',revelations:'revelation'};
+  const key=alias[nm]||nm;
+  let b=BOOKS.findIndex(x=>x.toLowerCase()===key); if(b<0)b=BOOKS.findIndex(x=>x.toLowerCase().replace(/\s/g,'').startsWith(key.replace(/\s/g,'')));
+  if(b<0)return null; const c=+m[2]; if(!BIBLE||c<1||c>BIBLE.text[b].length)return null;
+  return {b,c,v:m[3]?+m[3]:null};
+}
+
+// ---------- GOSPEL ON THE HAND ----------
+let HANDD=null, handStage=0;
+const HSTAGES=['thumb','index','tall','ring','decide','pinky','practise'];
+function handSVG(sel){
+  const F=[['thumb','rotate(-38 70 175)',46,128,30,74],['index','',66,44,28,104],['tall','',98,22,28,120],['ring','',130,36,28,106],['pinky','',162,64,24,86]];
+  return `<svg viewBox="0 0 220 250" width="190" height="216" style="display:block;margin:0 auto" role="img" aria-label="Hand">
+   <rect x="62" y="128" rx="34" width="128" height="110" fill="var(--blue-100)" stroke="var(--blue-300)" stroke-width="2"/>
+   ${F.map(([k,t,x,y,w,h],j)=>`<g data-f="${k}" style="cursor:pointer" transform="${t}"><rect x="${x}" y="${y}" rx="${w/2}" width="${w}" height="${h}" fill="${sel===k?'var(--blue-600)':'#fff'}" stroke="${sel===k?'var(--blue-700)':'var(--blue-300)'}" stroke-width="2"/><text x="${x+w/2}" y="${y+22}" text-anchor="middle" font-family="Inter,sans-serif" font-weight="700" font-size="13" fill="${sel===k?'#fff':'var(--blue-700)'}">${j+1}</text></g>`).join('')}
+  </svg>`;
+}
+async function viewHand(){
+  backTop('The Gospel on the Hand','tools');
+  if(!HANDD){ $('#main').innerHTML='<div class="spin"></div>'; try{HANDD=await getJSON('data/hand.json')}catch(e){$('#main').innerHTML='<div class="empty">Could not load. Please try again.</div>';return} }
+  const st=HSTAGES[handStage], f=HANDD.find(x=>x.k===st);
+  const dots=`<div class="prog">${HSTAGES.map((_,j)=>`<i class="${j<=handStage?'on':''}"></i>`).join('')}</div>`;
+  let body='';
+  if(f){
+    body=`<div class="stepnm">${esc(f.name)} · ${esc(f.sub)}</div><h2>${esc(f.tag)}</h2>
+     <div class="card pad" style="margin-bottom:12px;background:var(--blue-50)"><i>${esc(f.act)}</i></div>
+     <div class="card pad" style="margin-bottom:12px"><div class="note">${esc(f.say)}</div></div>
+     ${f.verses.map(p=>`<details class="card passage" data-b="${p.b}"><summary class="ref" style="cursor:pointer;list-style:none"><span>${esc(p.ref)}</span><span class="muted">tap to read</span></summary><div class="scr" style="font-size:16px;margin-top:6px">${p.vs.map(v=>esc(vt(v))).join(' ')}</div></details>`).join('')}`;
+  } else if(st==='decide'){
+    body=`<div class="stepnm">The decision</div><h2>Stop and ask</h2>
+     <div class="card pad" style="margin-bottom:12px"><b>Ask the person: "Are you willing to ask Jesus into your heart?"</b><p style="margin:8px 0 0">If they say yes, bow together in prayer. Pray first, asking God to give understanding and clarity. Then go back through the fingers from the thumb, and let them answer each question to God in their own words:</p></div>
+     ${HANDD.slice(0,4).map((x,j)=>`<div class="card pad" style="margin-bottom:10px;display:flex;gap:12px;align-items:flex-start"><div style="width:30px;height:30px;flex:none;border-radius:50%;background:var(--blue-600);color:#fff;display:grid;place-items:center;font-weight:700">${j+1}</div><div><b>${esc(x.name)}</b><div>${esc(x.pray)}</div></div></div>`).join('')}
+     <div class="card pad" style="background:var(--blue-50)"><b>For yourself?</b> If you are reading this and want to receive Jesus, you can pray through these four questions right now.
+      ${S.saved?`<p class="muted" style="margin:8px 0 0">You received Jesus on ${esc(new Date(S.saved).toDateString())}. Welcome to the family!</p>`:`<button class="btn pri" id="handSaved" style="width:100%;margin-top:10px">I received Jesus today</button>`}</div>`;
+  } else {
+    const people=(S.notes['people']||'').split('\n').map(x=>x.trim()).filter(Boolean);
+    const qz=+(S.notes['hand:quiz']||0)%5, qf=HANDD[qz];
+    body=`<div class="stepnm">Practise</div><h2>Practise until you're confident</h2>
+     <div class="card pad" style="margin-bottom:12px"><b>Quiz yourself</b><p class="muted" style="margin:4px 0 8px">Which part of the gospel is finger ${qz+1}? Say it out loud, then reveal.</p>
+      <details><summary class="lnk">Reveal finger ${qz+1}</summary><div style="margin-top:6px"><b>${esc(qf.name)}: ${esc(qf.tag)}</b> (${esc(qf.sub)}) · ${esc(qf.refs.join('; '))}</div></details>
+      <button class="btn gh" id="nextQ" style="width:100%;margin-top:10px">Next finger</button></div>
+     <div class="card pad" style="margin-bottom:12px"><b>Pair up</b><p style="margin:4px 0 0">Practise with a friend: you share the hand with them, then they share it with you.</p></div>
+     <div class="card pad" style="margin-bottom:12px"><b>With whom will you share it this week?</b>
+      ${people.length?`<div class="chips">${people.map(p=>`<span class="chip">${esc(p)}</span>`).join('')}</div>`:''}
+      <input data-k="hand:share" value="${esc(S.notes['hand:share']||'')}" placeholder="A name" style="width:100%;margin-top:8px;border:1.5px solid var(--line);border-radius:14px;padding:12px 14px;outline:none"><div class="saved" data-sv="hand:share"></div></div>
+     <div class="card pad" style="margin-bottom:12px"><b>Important: when someone receives Jesus</b>
+      <ul style="margin:8px 0 0;padding-left:20px"><li>Begin training them as a disciple straight away. Don't just take them to church and assume someone else will.</li><li>Meet with them at least weekly and introduce them to a few other faithful disciples. The New Life in Christ course is ready for this.</li><li>Hold them accountable to obey Jesus. Lead by example and encourage them.</li><li>Expect them to share their story immediately and to teach others what they are learning.</li></ul></div>
+     <p class="muted" style="text-align:center">The Gospel on the Hand, from AIM Trainers (aimtrainers.org).</p>`;
+  }
+  const last=handStage===HSTAGES.length-1;
+  $('#main').innerHTML=`${dots}${handSVG(st)}<p class="muted" style="text-align:center;margin:4px 0 14px">Use the hand you wear a wedding ring on. Tap a finger.</p>
+   <div class="step">${body}</div>
+   <div class="navbtns">${handStage>0?`<button class="btn gh" id="hPrev">Back</button>`:''}${last?`<button class="btn pri" id="hRestart">Start again</button>`:`<button class="btn pri" id="hNext">${HSTAGES[handStage+1]==='decide'?'The decision':HSTAGES[handStage+1]==='practise'?'Practise':'Next finger'}</button>`}</div>`;
+  document.querySelectorAll('[data-f]').forEach(g=>g.onclick=()=>{handStage=HSTAGES.indexOf(g.dataset.f);viewHand();window.scrollTo(0,0)});
+  const n=$('#hNext'); if(n) n.onclick=()=>{handStage++;viewHand();window.scrollTo(0,0)};
+  const p=$('#hPrev'); if(p) p.onclick=()=>{handStage--;viewHand();window.scrollTo(0,0)};
+  const r=$('#hRestart'); if(r) r.onclick=()=>{handStage=0;viewHand();window.scrollTo(0,0)};
+  const hs=$('#handSaved'); if(hs) hs.onclick=()=>{receivedJesus();viewHand()};
+  const q=$('#nextQ'); if(q) q.onclick=()=>{S.notes['hand:quiz']=(+(S.notes['hand:quiz']||0)+1)%5;save();viewHand()};
+  bindTA();
+}
+
+// ---------- PRAYER BUILDER ----------
+const PRAYP=[
+ ['praise','Praise','Matthew 6:9','What can you say to God about His greatness, what He has done, or your love for Him?'],
+ ['purpose','Purpose','Matthew 6:10','What can you say to God about His Kingdom, His plan for the world, or your part in it?'],
+ ['provision','Provision','Matthew 6:11','What can you ask God for: your everyday needs, and the needs of others?'],
+ ['pardon','Pardon','Matthew 6:12','What can you say to God about your sins, and about forgiving people who have wronged you?'],
+ ['protection','Protection','Matthew 6:13','What can you ask God about protecting you from temptation and the evil one?']];
+function lordsPrayerVerse(v){const L=SERIES.flatMap(s=>s.lessons).find(l=>l.refs.includes('Matthew 6:9-13'));if(!L)return '';const p=L.verses.find(x=>x.ref==='Matthew 6:9-13');const x=p&&p.vs.find(y=>y.v===v);return x?vt(x):''}
+function viewPray(){
+  backTop('Prayer Builder','tools');
+  S.prayers=S.prayers||[];
+  $('#main').innerHTML=`<h2 style="font-size:26px;color:var(--blue-900);margin:4px 0 6px">Pray like this</h2>
+   <p class="muted" style="margin:0 0 14px">In Matthew 6:9-13 Jesus gave us a model prayer. Use His five parts to write your own prayer to God. Say it out loud when you're done.</p>
+   ${PRAYP.map(([k,t,r,q],j)=>`<div class="card pad" style="margin-bottom:12px"><div style="display:flex;gap:10px;align-items:center"><div class="n" style="width:32px;height:32px;border-radius:50%;background:var(--blue-600);color:#fff;display:grid;place-items:center;font-weight:700">${j+1}</div><b style="font-size:18px;color:var(--blue-900)">${t}</b></div>
+     <div class="scr" style="font-size:15.5px;margin-top:8px;color:var(--ink-2)">"${esc(lordsPrayerVerse(9+j))}" <span class="muted" style="font-family:Inter,sans-serif">${r}</span></div>
+     <div style="margin-top:8px;font-weight:600">${esc(q)}</div>${TA('pray:'+k,'Dear Father...',80)}</div>`).join('')}
+   <div class="card pad muted" style="margin-bottom:12px">End with "In Jesus' name". Jesus makes our connection with God possible. "Amen" means "so be it".</div>
+   <div style="display:grid;gap:10px"><button class="btn pri" id="prayIt">Pray it &amp; save</button></div>
+   <div id="prayOut"></div>
+   ${S.prayers.length?`<div class="sec"><h2 style="font-size:20px">My prayers</h2><span>${S.prayers.length}</span></div>${S.prayers.slice().reverse().map(p=>`<details class="card jnote"><summary><b>${esc(new Date(p.d).toDateString())}</b></summary><p>${esc(PRAYP.map(([k])=>p[k]).filter(Boolean).join('\n\n'))}\n\nIn Jesus' name, Amen.</p></details>`).join('')}`:''}`;
+  bindTA();
+  $('#prayIt').onclick=()=>{
+    const p={d:Date.now()};PRAYP.forEach(([k])=>p[k]=(S.notes['pray:'+k]||'').trim());
+    if(!PRAYP.some(([k])=>p[k])){$('#prayOut').innerHTML='<p class="muted">Write at least one part of your prayer first.</p>';return}
+    S.prayers.push(p);PRAYP.forEach(([k])=>delete S.notes['pray:'+k]);save();
+    $('#main').innerHTML=`<div class="card prayer" style="margin-top:8px"><div class="muted" style="font-family:Inter,sans-serif;margin-bottom:8px">Pray this out loud${NM()?', '+esc(NM()):''}:</div>${esc(PRAYP.map(([k])=>p[k]).filter(Boolean).join('\n\n')).replace(/\n/g,'<br>')}<br><br>In Jesus' name, Amen.</div>
+      <p class="muted" style="text-align:center">Saved to My prayers.</p><div style="display:grid;gap:10px"><button class="btn pri" data-go="journey">Go to My Journey</button><button class="btn gh" id="again">Write another prayer</button></div>`;
+    $('#again').onclick=()=>viewPray(); window.scrollTo(0,0);
+  };
+}
+// ---------- S.O.S. JOURNAL ----------
+async function viewSOS(){
+  backTop('S.O.S. Bible Study','tools');
+  S.sos=S.sos||[];
+  $('#main').innerHTML=`<h2 style="font-size:26px;color:var(--blue-900);margin:4px 0 6px">S.O.S. Bible Study</h2>
+   <p class="muted" style="margin:0 0 14px">Read any passage on your own and ask three questions: what does it <b>Say</b>, what must I <b>Obey</b>, and with whom can I <b>Share</b>? A great way to read through a whole book, a few verses at a time.</p>
+   <form class="sbox" id="sosF"><input id="sosR" value="${esc(S.notes['sos:ref']||'')}" placeholder="e.g. Mark 1:1-11" autocomplete="off"><button class="btn pri" style="padding:9px 16px">Open</button></form>
+   <div id="sosP" style="margin-top:12px"></div>
+   <div id="sosQ" style="display:${S.notes['sos:ref']?'block':'none'}">
+    ${QB('What does it Say?','sos:say','In your own words, what does this passage say? What do you learn about God and about people?',110)}
+    ${QB('What must I Obey?','sos:obey','I will...',80)}
+    ${QB('With whom can I Share?','sos:share','A name...',60)}
+    <button class="btn pri" id="sosSave" style="width:100%">Save to my S.O.S. notes</button><div id="sosMsg"></div>
+   </div>
+   ${S.sos.length?`<div class="sec"><h2 style="font-size:20px">My S.O.S. notes</h2><span>${S.sos.length}</span></div>${S.sos.slice().reverse().map(e=>`<details class="card jnote"><summary><b>${esc(e.ref)}</b> <span class="muted">· ${esc(new Date(e.d).toDateString())}</span></summary><p><b style="color:var(--ink)">Say:</b> ${esc(e.say)}</p><p><b style="color:var(--ink)">Obey:</b> ${esc(e.obey)}</p><p><b style="color:var(--ink)">Share:</b> ${esc(e.share)}</p></details>`).join('')}`:''}`;
+  bindTA();
+  const show=async()=>{
+    const q=$('#sosR').value.trim(); if(!q)return;
+    $('#sosP').innerHTML='<div class="spin"></div>';
+    try{await loadBible()}catch(e){$('#sosP').innerHTML='<div class="empty">Could not load the Bible text.</div>';return}
+    const m=q.match(/^(.*?\d+)(?::(\d+)(?:-(\d+))?)?$/); const r=m&&parseRef(m[1]);
+    if(!r){$('#sosP').innerHTML='<div class="empty">Try a reference like "John 3" or "Mark 1:1-11".</div>';return}
+    const ch=BIBLE.text[r.b][r.c-1]; let a=m[2]?+m[2]:1, z=m[3]?+m[3]:(m[2]?+m[2]:ch.length); z=Math.min(z,ch.length);
+    const label=`${BOOKS[r.b]} ${r.c}${m[2]?':'+a+(z!==a?'-'+z:''):''}`;
+    S.notes['sos:ref']=label; save();
+    $('#sosP').innerHTML=`<div class="card passage" data-b="${r.b}"><div class="ref"><span>${esc(label)} (${VER[VN()].n})</span></div><div class="scr">${ch.slice(a-1,z).map((t,j)=>`<sup>${a+j}</sup>${esc(t)}`).join(' ')}</div></div>
+      <div class="tip">Read it aloud three times.</div>`;
+    $('#sosQ').style.display='block';
+  };
+  $('#sosF').onsubmit=e=>{e.preventDefault();show()};
+  if(S.notes['sos:ref'])show();
+  $('#sosSave').onclick=()=>{
+    const e={d:Date.now(),ref:S.notes['sos:ref']||'',say:S.notes['sos:say']||'',obey:S.notes['sos:obey']||'',share:S.notes['sos:share']||''};
+    if(!e.say&&!e.obey){$('#sosMsg').innerHTML='<p class="muted">Write what it says and what you must obey first.</p>';return}
+    S.sos.push(e);['sos:say','sos:obey','sos:share','sos:ref'].forEach(k=>delete S.notes[k]);save();viewSOS();window.scrollTo(0,0);
+  };
+}
+function bindTA(){document.querySelectorAll('textarea[data-k],input[data-k]').forEach(ta=>{let t;ta.oninput=()=>{clearTimeout(t);t=setTimeout(()=>{S.notes[ta.dataset.k]=ta.value;save();const sv=document.querySelector(`[data-sv="${ta.dataset.k}"]`);if(sv){sv.textContent='Saved ✓';setTimeout(()=>sv.textContent='',1500)}},400)}})}
+
+// ---------- WORD PAGE ----------
+async function viewWord(n){
+  backTop("Strong's "+n,'search');
+  $('#main').innerHTML='<div class="spin"></div>';
+  try{await loadLex()}catch(e){$('#main').innerHTML='<div class="empty">Could not load the word library.</div>';return}
+  const e=LEX[n]; if(!e){$('#main').innerHTML='<div class="empty">Word not found.</div>';return}
+  const [lem,xl,pr,def,kjv,der]=e;
+  const renders=(kjv||'').replace(/\([^)]*\)|\[[^\]]*\]/g,'').split(/[,;]/).map(x=>x.replace(/[^A-Za-z ]/g,'').trim()).filter(x=>x&&x.length>2&&!/^x$/i.test(x)).slice(0,6);
+  const used=[];SERIES.forEach(s=>s.lessons.forEach((L,i)=>{if(L.words[n])used.push(`<button class="card lesson" data-go="lesson-${s.id}-${i}"><div class="n">${i+1}</div><div class="t"><b>${esc(L.title)}</b><small>${esc(s.title)}</small></div><span class="chev">${IC.chev}</span></button>`)}));
+  $('#main').innerHTML=`<div class="card word" style="padding:22px"><div class="num">${n[0]==='H'?'HEBREW · OLD TESTAMENT':'GREEK · NEW TESTAMENT'} · STRONG'S ${n}</div>
+   <div class="lem" style="font-size:48px">${scriptLemma(n,lem)}</div><div class="xl" style="font-size:20px">${esc(xl)}</div>${pr?`<div class="pr">pronounced: ${esc(pr)}</div>`:''}
+   <dl><dt>Meaning</dt><dd>${cleanDef(def)}</dd><dt>Translated in the KJV as</dt><dd>${cleanDef(kjv)}</dd>${der?`<dt>Root / derivation</dt><dd>${cleanDef(der)}</dd>`:''}</dl></div>
+   ${renders.length?`<div class="sec"><h2 style="font-size:19px">Find it in the Bible</h2></div><div class="chips">${renders.map(r=>`<button class="chip" data-vs="${esc(r)}">Verses with "${esc(r)}"</button>`).join('')}</div><p class="muted">Searches the KJV English for this rendering. ${n[0]==='H'?'Look in the Old Testament results.':'Look in the New Testament results.'}</p>`:''}
+   ${used.length?`<div class="sec"><h2 style="font-size:19px">In the courses</h2></div>${used.join('')}`:''}
+   ${samp?`<button class="card askbox" id="askW" style="margin-top:14px"><div class="q">${IC.ask}</div><div><b>Ask about ${esc(xl)}</b><div class="muted">How is this word used in Scripture?</div></div></button>`:''}
+   <div class="foot">Definitions from Strong's Exhaustive Concordance (public domain), digitised by Open Scriptures (CC BY-SA).</div>`;
+  document.querySelectorAll('[data-vs]').forEach(b=>b.onclick=()=>{sMode='verses';sQ=b.dataset.vs;go('search')});
+  const aw=$('#askW'); if(aw) aw.onclick=()=>{openAsk(null);setTimeout(()=>ask(`Explain the ${n[0]==='H'?'Hebrew':'Greek'} word ${xl} (Strong's ${n}, ${lem}), which means "${(def||'').replace(/[{}]/g,'').slice(0,120)}". How is it used in key Bible verses, and what can I learn from it?`),50)};
+}
+function openWord(n){go('word-'+n)}
+
+// ---------- BIBLE READER ----------
+async function viewBible(b,c){
+  if(b==null){
+    brandTop();
+    const grid=(a,z)=>BOOKS.slice(a,z).map((x,j)=>`<button data-go="bible-${a+j}">${esc(x)}</button>`).join('');
+    $('#main').innerHTML=`<h2 style="font-size:26px;color:var(--blue-900);margin:4px 0 10px">The Bible</h2><p class="muted" style="margin:0 0 10px">Choose your Bible version.</p>${verPicker()}<button class="card askbox" data-go="sos"><div class="q">${IC.book.replace('<svg','<svg width="22" height="22"')}</div><div><b>S.O.S. Bible Study</b><div class="muted">Say · Obey · Share notes on any passage</div></div></button>
+     <div class="group">Old Testament</div><div class="grid">${grid(0,39)}</div><div class="group">New Testament</div><div class="grid">${grid(39,66)}</div>`;
+    return;
+  }
+  $('#main').innerHTML='<div class="spin"></div>';
+  backTop(BOOKS[b]+(c?' '+c:''),c?'bible-'+b:'bible');
+  try{await loadBible()}catch(e){$('#main').innerHTML='<div class="empty">Could not load the Bible text. Check your connection.</div>';return}
+  const bk=BIBLE.text[b];
+  if(!c){$('#main').innerHTML=`<h2 style="font-size:26px;color:var(--blue-900);margin:4px 0 12px">${esc(BOOKS[b])}</h2><div class="grid ch">${bk.map((_,j)=>`<button data-go="bible-${b}-${j+1}">${j+1}</button>`).join('')}</div>`;return}
+  const ch=bk[c-1]; if(!ch) return go('bible-'+b);
+  const prev=c>1?`bible-${b}-${c-1}`:b>0?`bible-${b-1}-${BIBLE.text[b-1].length}`:null;
+  const next=c<bk.length?`bible-${b}-${c+1}`:b<65?`bible-${b+1}-1`:null;
+  $('#main').innerHTML=`<div class="reader"><h2 style="font-size:28px;color:var(--blue-900);margin:4px 0 4px">${esc(BOOKS[b])} ${c}</h2>${verPicker()}${listenBtn('bch')}
+   <div class="card pad scr">${ch.map((t,v)=>`<p><sup>${v+1}</sup>${esc(t)}</p>`).join('')}</div>${gwLinks([BOOKS[b]+' '+c])}</div>
+   <div class="chnav">${prev?`<button class="btn gh" data-go="${prev}">← Previous</button>`:''}${next?`<button class="btn gh" data-go="${next}">Next →</button>`:''}</div>`;
+  bindListen('bch',()=>BOOKS[b]+' chapter '+c+'. '+ch.join(' '));
+}
+
+// ---------- JOURNEY ----------
+function viewJourney(){
+  brandTop();
+  const total=SERIES.reduce((a,s)=>a+s.lessons.length,0), done=Object.keys(S.done).length;
+  const notes=[];
+  SERIES.forEach(s=>s.lessons.forEach((L,i)=>{const r=['understand','noticed','reflect','hour','learnt'].map(k=>S.notes[`${s.id}:${i}:${k}`]).filter(x=>x&&x.trim()).join('\n\n');if(r)notes.push(`<a class="card jnote" data-go="lesson-${s.id}-${i}-3"><b>${esc(L.title)}</b><p>${esc(r)}</p></a>`)}));
+  $('#main').innerHTML=`<h2 style="font-size:26px;color:var(--blue-900);margin:4px 0 12px">${NM()?esc(NM())+"'s Journey":"My Journey"}</h2>
+   ${S.saved?`<div class="declare" style="padding:20px;margin-bottom:14px"><div style="font-size:13px;opacity:.85">My spiritual birthday</div><div class="q" style="font-size:24px">${esc(new Date(S.saved).toDateString())}</div></div>`:''}
+   <div class="stat"><div class="card"><b>${done}</b><span>lessons done</span></div><div class="card"><b>${S.fav.length}</b><span>saved verses</span></div><div class="card"><b>${notes.length}</b><span>reflections</span></div></div>
+   <div class="stat" style="grid-template-columns:1fr 1fr;margin-top:10px"><a class="card" data-go="pray" style="color:inherit;text-decoration:none"><b>${(S.prayers||[]).length}</b><span>my prayers</span></a><a class="card" data-go="sos" style="color:inherit;text-decoration:none"><b>${(S.sos||[]).length}</b><span>S.O.S. notes</span></a></div>
+   <div class="sec"><h2 style="font-size:20px">Courses</h2><span>${done}/${total}</span></div>
+   ${SERIES.filter(s=>!LOCKED()||s.id==='salvation').map(s=>{const d=doneCount(s),n=s.lessons.length;return `<a class="card course" data-go="series-${s.id}" style="padding:12px 14px"><div class="tx"><b>${esc(s.title)}</b><div class="bar"><i style="width:${d/n*100}%"></i></div><div class="meta" style="margin-top:4px">${d} of ${n}</div></div></a>`}).join('')}
+   <div class="sec"><h2 style="font-size:20px">Saved verses</h2></div>
+   ${S.fav.length?S.fav.map(r=>{const v=SERIES.flatMap(s=>s.lessons.flatMap(l=>l.verses)).find(x=>x.ref===r);return v?`<div class="card passage"><div class="ref"><span>${esc(r)}</span></div><div class="scr" style="font-size:16px">${v.vs.map(x=>esc(vt(x))).join(' ')}</div></div>`:''}).join(''):'<div class="empty">Tap ☆ on any verse in a lesson to save it here.</div>'}
+   ${(S.notes['story:before']||S.notes['story:met']||S.notes['story:after'])?`<div class="sec"><h2 style="font-size:20px">My story</h2></div><div class="card jnote"><p><b style="color:var(--ink)">Before:</b> ${esc(S.notes['story:before']||'')}</p><p><b style="color:var(--ink)">How I met Jesus:</b> ${esc(S.notes['story:met']||'')}</p><p><b style="color:var(--ink)">How He changed me:</b> ${esc(S.notes['story:after']||'')}</p></div>`:''}
+   ${S.notes['people']?`<div class="sec"><h2 style="font-size:20px">My people list</h2></div><div class="card jnote"><div class="chips">${S.notes['people'].split('\n').map(x=>x.trim()).filter(Boolean).map(p=>`<span class="chip">${esc(p)}</span>`).join('')}</div></div>`:''}
+   <div class="sec"><h2 style="font-size:20px">My commitments</h2></div>
+   ${(()=>{const c=[];SERIES.forEach(s=>s.lessons.forEach((L,i)=>{const o=S.notes[`${s.id}:${i}:obey`],h=S.notes[`${s.id}:${i}:share`];if((o&&o.trim())||(h&&h.trim()))c.push(`<a class="card jnote" data-go="lesson-${s.id}-${i}"><b>${esc(L.title)}</b>${o?`<p><b style="color:var(--ink)">Obey:</b> ${esc(o)}</p>`:''}${h?`<p><b style="color:var(--ink)">Share with:</b> ${esc(h)}</p>`:''}</a>`)}));return c.length?c.join(''):'<div class="empty">The steps you choose to obey and the people you plan to share with will appear here.</div>'})()}
+   <div class="sec"><h2 style="font-size:20px">My reflections</h2></div>
+   ${notes.length?notes.join(''):'<div class="empty">Your answers to the reflection questions will appear here.</div>'}
+   <div class="sec"><h2 style="font-size:20px">Your name</h2></div>
+   <form class="sbox" id="nmF"><input id="nmE" maxlength="30" value="${esc(NM())}" placeholder="Add your name (optional)"><button class="btn pri" style="padding:9px 16px">Save</button></form>
+   <p class="muted" style="text-align:center;margin-top:20px">Your name, progress and notes are kept on this device.</p>`;
+  $('#nmF').onsubmit=e=>{e.preventDefault();S.name=$('#nmE').value.trim().slice(0,30);save();render()};
+}
+
+// ---------- boot ----------
+getJSON('data/series.json').then(d=>{SERIES=d;render();setTimeout(()=>{loadLex().catch(()=>{})},1500)}).catch(()=>{$('#main').innerHTML='<div class="empty">Could not load the courses. Please refresh.</div>'});
+})();
+</script>
+</body>
+</html>
